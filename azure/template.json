@@ -33,18 +33,6 @@
       "maxLength": 2,
       "defaultValue": "01"
     },
-    "vNetInstance": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2,
-      "defaultValue": "01"
-    },
-    "subnetInstance": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2,
-      "defaultValue": "01"
-    },
     "eapimIp": {
       "type": "string",
       "minLength": 7,
@@ -59,11 +47,7 @@
     "functionAppName": "[concat(variables('namePrefix'), '-', parameters('appName'), '-fa-01')]",
     "functionAppId": "[concat(resourceGroup().id,'/providers/','Microsoft.Web/sites/', variables('functionAppName'))]",
     "appInsightsName": "[concat(variables('namePrefix'), '-ai-', parameters('appInsightsInstance'))]",
-    "sharedResourceGroupName": "[concat(variables('namePrefix'), '-shared')]",
-    "corePrefix": "[concat(variables('namePrefix'), '-core')]",
-    "vNetName": "[concat(concat(variables('corePrefix'), '-vn-'), parameters('vNetInstance'))]",
-    "subnetName": "[concat(concat(variables('corePrefix'), '-sn-'), parameters('subnetInstance'))]",
-    "subnetId": "[resourceId(variables('corePrefix'), 'Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnetName'))]"
+    "sharedResourceGroupName": "[concat(variables('namePrefix'), '-shared')]"
   },
   "resources": [
     {
@@ -101,12 +85,13 @@
       "name": "[variables('servicePlanName')]",
       "location": "[resourceGroup().location]",
       "sku": {
-        "name": "P1V2",
-        "tier": "PremiumV2"
+        "name": "Y1",
+        "tier": "Dynamic"
       },
       "kind": "functionapp",
       "properties": {
-        "name": "[variables('servicePlanName')]"
+        "name": "[variables('servicePlanName')]",
+        "computeMode": "Dynamic"
       },
       "tags": {
         "environment": "[parameters('environmentName')]",
@@ -170,20 +155,6 @@
           ]
         }
       },
-      "resources": [
-        {
-          "apiVersion": "2016-08-01",
-          "type": "Microsoft.Web/sites/networkConfig",
-          "name": "[concat(variables('functionAppName'), '/VirtualNetwork')]",
-          "location": "[resourceGroup().location]",
-          "dependsOn": [
-            "[concat('Microsoft.Web/sites/', variables('functionAppName'))]"
-          ],
-          "properties": {
-            "subnetResourceId": "[variables('subnetId')]"
-          }
-        }
-      ],
       "tags": {
         "environment": "[parameters('environmentName')]",
         "app": "[parameters('appName')]"

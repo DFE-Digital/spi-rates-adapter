@@ -8,7 +8,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <!-- Microsoft --> 
+    <!-- Microsoft -->
+    <PackageReference Include="Dfe.Spi.Common.Http.Server" Version="1.0.17" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
 
     <!-- Development/Non-Runtime -->
@@ -26,6 +28,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dfe.Spi.RatesAdapter.Application\Dfe.Spi.RatesAdapter.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="HttpErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HttpErrorMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="HttpErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HttpErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   
   <ItemGroup>

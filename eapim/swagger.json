@@ -1,0 +1,54 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Rates Adapter API",
+    "version": "2.0",
+    "description": "SPI middleware component: provides rate information for learning providers and management groups."
+  },
+  "basePath": "/api",
+  "host": "__function_app_host__",
+  "paths": {
+    "/HeartBeat": {
+      "get": {
+        "description": "Standard diagnostics method, used to test the health of the facade's underlying system.",
+        "operationId": "heart-beat",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token authentication.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The standard/only response from the method."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "http-error-body": {
+      "type": "object",
+      "properties": {
+        "errorIdentifier": {
+          "type": "string",
+          "description": "An error identifier.",
+          "example": "SPI-RA-1"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message describing the error.",
+          "example": "The supplied body was either empty, or not well-formed JSON."
+        },
+        "statusCode": {
+          "type": "integer",
+          "description": "The status code thrown with the error.",
+          "example": 400
+        }
+      }
+    }
+  }
+}

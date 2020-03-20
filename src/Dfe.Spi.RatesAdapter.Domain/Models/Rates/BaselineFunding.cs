@@ -8,7 +8,7 @@
     public class BaselineFunding : RatesBase, IBaselineFunding
     {
         /// <inheritdoc />
-        public decimal Value
+        public long Value
         {
             get;
             set;

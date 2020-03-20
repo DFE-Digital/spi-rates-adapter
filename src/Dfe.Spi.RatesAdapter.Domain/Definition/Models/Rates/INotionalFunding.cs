@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the <c>NotionalTotalNFFFunding</c> value.
         /// </summary>
-        decimal NotionalTotalNFFFunding
+        long NotionalTotalNFFFunding
         {
             get;
             set;

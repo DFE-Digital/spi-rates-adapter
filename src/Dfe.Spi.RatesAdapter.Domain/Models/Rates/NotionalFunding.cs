@@ -8,7 +8,7 @@
     public class NotionalFunding : RatesBase, INotionalFunding
     {
         /// <inheritdoc />
-        public decimal NotionalTotalNFFFunding
+        public long NotionalTotalNFFFunding
         {
             get;
             set;

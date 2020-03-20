@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the <c>BaselineFunding</c> value.
         /// </summary>
-        decimal Value
+        long Value
         {
             get;
             set;

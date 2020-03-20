@@ -9,7 +9,7 @@
         : SchoolRatesGroupsBase, IIllustrativeFunding
     {
         /// <inheritdoc />
-        public decimal IllustrativeTotalNFFFunding
+        public long IllustrativeTotalNFFFunding
         {
             get;
             set;

@@ -3,25 +3,25 @@
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
       "columnMappings": {
-        "Region": "A"
+        "Region": 0
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.BaselineFunding",
       "columnMappings": {
-        "Value": "J"
+        "Value": 9
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.IllustrativeFunding",
       "columnMappings": {
-        "IllustrativeTotalNffFunding": "O"
+        "IllustrativeTotalNffFunding": 14
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
       "columnMappings": {
-        "NotionalTotalNffFunding": "L"
+        "NotionalTotalNffFunding": 11
       }
     }
   ],

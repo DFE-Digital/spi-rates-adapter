@@ -28,7 +28,7 @@
             "Microsoft.Usage",
             "CA2227",
             Justification = "This is a DTO.")]
-        public Dictionary<string, string> ColumnMappings
+        public Dictionary<string, int> ColumnMappings
         {
             get;
             set;

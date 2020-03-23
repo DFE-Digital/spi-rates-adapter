@@ -3,10 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Models.ConfigurationFileModels;
     using ExcelDataReader;
@@ -17,17 +21,34 @@
     /// </summary>
     public class SpreadsheetReader : ISpreadsheetReader
     {
+        private static Type nullableLong = typeof(long?);
+
+        private readonly ILoggerWrapper loggerWrapper;
+
+        private readonly Type[] allDomainModelTypes;
+
         /// <summary>
         /// Initialises a new instance of the <see cref="SpreadsheetReader" />
         /// class.
         /// </summary>
-        public SpreadsheetReader()
+        /// <param name="loggerWrapper">
+        /// An instance of type <see cref="ILoggerWrapper" />.
+        /// </param>
+        public SpreadsheetReader(ILoggerWrapper loggerWrapper)
         {
+            this.loggerWrapper = loggerWrapper;
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            Type type = typeof(DomainModels.ModelsBase);
+
+            Assembly assembly = type.Assembly;
+
+            this.allDomainModelTypes = assembly.GetTypes();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<DomainModels.ModelsBase>> ReadAsync(
+        public Task<IEnumerable<DomainModels.ModelsBase>> ReadAsync(
             ConfigurationFile configurationFile,
             string spreadsheetFile,
             CancellationToken cancellationToken)
@@ -67,8 +88,10 @@
                         // 1) Go to the first row.
                         if (i >= (firstRow - 1))
                         {
-                            rowInstances = await this.ReadRowAsync(dataRow)
-                                .ConfigureAwait(false);
+                            rowInstances = this.ReadRowAsync(
+                                configurationFile,
+                                i,
+                                dataRow);
 
                             toReturn.AddRange(rowInstances);
                         }
@@ -76,21 +99,124 @@
                 }
             }
 
-            return toReturn;
+            return Task.FromResult<IEnumerable<DomainModels.ModelsBase>>(
+                toReturn);
         }
 
-        private async Task<IEnumerable<DomainModels.ModelsBase>> ReadRowAsync(
+        private IEnumerable<DomainModels.ModelsBase> ReadRowAsync(
+            ConfigurationFile configurationFile,
+            int row,
             DataRow dataRow)
         {
             List<DomainModels.ModelsBase> toReturn =
                 new List<DomainModels.ModelsBase>();
 
-            // TODO:
-            // 3) Iterate through the configuration file and
-            //      instantiate new instances, based on the requested types.
+            // 3) Iterate through the configuration file and...
+            DomainModels.ModelsBase modelsBase = null;
+            foreach (ColumnMappingConfiguration columnMappingConfiguration in configurationFile.ColumnMappingConfigurations)
+            {
+                // .. instantiate new instances, based on the requested types.
+                modelsBase = this.CreateAndPopulateModelsBaseInstance(
+                    columnMappingConfiguration,
+                    row,
+                    dataRow);
+
+                toReturn.Add(modelsBase);
+            }
+
+            return toReturn;
+        }
+
+        private DomainModels.ModelsBase CreateAndPopulateModelsBaseInstance(
+            ColumnMappingConfiguration columnMappingConfiguration,
+            int row,
+            DataRow dataRow)
+        {
+            DomainModels.ModelsBase toReturn = null;
+
             // 4) Use reflection to cycle through the properties, check if
             //    it's in the configuration, if it is, read from the specified
             //    column. Then set it.
+            string modelType = columnMappingConfiguration.ModelType;
+
+            Type type = this.allDomainModelTypes
+                .Single(x => x.FullName == modelType);
+
+            toReturn = (DomainModels.ModelsBase)Activator.CreateInstance(type);
+
+            // Now stitch it up.
+            Dictionary<string, int> columnMappings =
+                columnMappingConfiguration.ColumnMappings;
+
+            PropertyInfo propertyInfo = null;
+            object value = null;
+            Type actualModelType = null;
+            Type actualValueType = null;
+            int column;
+            foreach (KeyValuePair<string, int> keyValuePair in columnMappings)
+            {
+                propertyInfo = type.GetProperty(keyValuePair.Key);
+                actualModelType = propertyInfo.PropertyType;
+
+                // We're at the mercy of ExcelDataReader with regards to the
+                // types that come out. Therefore, we may need to perfrom some
+                // parsing. If the types match, we're good, though.
+                column = keyValuePair.Value;
+
+                value = dataRow[column];
+
+                actualValueType = value.GetType();
+
+                if (actualModelType != actualValueType)
+                {
+                    value = this.TryParsingUnboxedValue(
+                        actualModelType,
+                        row,
+                        column,
+                        value);
+                }
+                else
+                {
+                    // Do nothing - the value is the required type.
+                }
+
+                if (value != null)
+                {
+                    propertyInfo.SetValue(toReturn, value);
+                }
+            }
+
+            return toReturn;
+        }
+
+        private object TryParsingUnboxedValue(
+            Type destinationType,
+            int row,
+            int column,
+            object value)
+        {
+            object toReturn = null;
+
+            string valueStr = value.ToString();
+
+            try
+            {
+                if (destinationType == nullableLong)
+                {
+                    toReturn = long.Parse(
+                        valueStr,
+                        CultureInfo.InvariantCulture);
+                }
+            }
+            catch (FormatException)
+            {
+                // TODO: Log to an errors CSV, so we can property review.
+                this.loggerWrapper.Warning(
+                    $"Row #{row}, Column #{column}: Attempted to parse " +
+                    $"\"{valueStr}\" to a {destinationType.Name}, but was " +
+                    $"unable to.");
+            }
+
             return toReturn;
         }
     }

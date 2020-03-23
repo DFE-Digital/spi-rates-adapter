@@ -9,6 +9,15 @@
     public class ConfigurationFile : ModelsBase
     {
         /// <summary>
+        /// Gets or sets the year of the spreadsheet.
+        /// </summary>
+        public int Year
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the row in which to begin reading from.
         /// </summary>
         public long FirstRow

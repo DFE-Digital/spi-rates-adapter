@@ -1,4 +1,5 @@
 {
+  "year": 2018,
   "columnMappingConfigurations": [
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
@@ -30,7 +31,7 @@
         "TotalNffFundingIfFullyImplemented": 17,
         "NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented": 18,
         "PercentageChangeComparedToBaselineIfFullyImplemented": 19,
-        "PercentageChangeInPupilLedFundingIfFullyImplemented":  20
+        "PercentageChangeInPupilLedFundingIfFullyImplemented": 20
       }
     },
     {

@@ -15,6 +15,10 @@
         /// Gets an individual <see cref="SchoolInformation" /> instance from
         /// the underlying storage.
         /// </summary>
+        /// <param name="year">
+        /// The year of the <see cref="SchoolInformation" /> in which to
+        /// return.
+        /// </param>
         /// <param name="urn">
         /// The URN of the <see cref="SchoolInformation" /> to return.
         /// </param>
@@ -25,6 +29,7 @@
         /// An instance of <see cref="SchoolInformation" />.
         /// </returns>
         Task<SchoolInformation> GetSchoolInformationAsync(
+            int year,
             long urn,
             CancellationToken cancellationToken);
     }

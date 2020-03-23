@@ -31,17 +31,34 @@
 
         /// <inheritdoc />
         public async Task<Rates> GetRatesAsync(
-            string id,
+            int year,
+            string entityName,
+            string identifier,
             CancellationToken cancellationToken)
         {
             // TODO: Simply in place to allow the calling of this adapter.
             //       The upper half will no doubt need refactoring when we
             //       know more about the super-model.
-            SchoolInformation schoolInformation =
-                await this.schoolInformationStorageAdapter.GetSchoolInformationAsync(
-                    long.Parse(id, CultureInfo.InvariantCulture),
-                    cancellationToken)
-                    .ConfigureAwait(false);
+            if (entityName == nameof(LearningProvider))
+            {
+                long urn;
+                if (!long.TryParse(identifier, out urn))
+                {
+                    // TODO: Throw some sort of exception.
+                }
+
+                SchoolInformation schoolInformation =
+                    await this.schoolInformationStorageAdapter.GetSchoolInformationAsync(
+                        year,
+                        urn,
+                        cancellationToken)
+                        .ConfigureAwait(false);
+            }
+            else
+            {
+                // TODO: Throw some sort of exception, tie up at Function App
+                //       level.
+            }
 
             throw new System.NotImplementedException("Finish me!");
         }

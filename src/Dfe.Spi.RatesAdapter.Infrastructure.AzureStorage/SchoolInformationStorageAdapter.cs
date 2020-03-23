@@ -60,6 +60,7 @@
 
         /// <inheritdoc />
         public override async Task CreateAsync(
+            int year,
             Domain.Models.SchoolInformation schoolInformation,
             CancellationToken cancellationToken)
         {
@@ -80,16 +81,20 @@
             ModelsBase[] modelsBases = new ModelsBase[]
             {
                 this.Map<Domain.Models.SchoolInformation, SchoolInformation>(
+                    year,
                     urn,
                     schoolInformation),
 
                 this.Map<Domain.Models.Rates.BaselineFunding, BaselineFunding>(
+                    year,
                     urn,
                     schoolInformation.BaselineFunding),
                 this.Map<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
+                    year,
                     urn,
                     schoolInformation.IllustrativeFunding),
                 this.Map<Domain.Models.Rates.NotionalFunding, NotionalFunding>(
+                    year,
                     urn,
                     schoolInformation.NotionalFunding),
             };
@@ -108,19 +113,21 @@
 
         /// <inheritdoc />
         public async Task<Domain.Models.SchoolInformation> GetSchoolInformationAsync(
+            int year,
             long urn,
             CancellationToken cancellationToken)
         {
             Domain.Models.SchoolInformation toReturn = null;
 
-            string urnStr = urn.ToString(CultureInfo.InvariantCulture);
+            string identifier =
+                $"{year.ToString(CultureInfo.InvariantCulture)}-{urn.ToString(CultureInfo.InvariantCulture)}";
 
             TableQuery tableQuery = new TableQuery();
 
             string filter = TableQuery.GenerateFilterCondition(
                 "PartitionKey",
                 QueryComparisons.Equal,
-                urnStr);
+                identifier);
 
             tableQuery.Where(filter);
 
@@ -137,6 +144,7 @@
         }
 
         private TSchoolRatesGroupsBase Map<TModelsBase, TSchoolRatesGroupsBase>(
+            int year,
             long urn,
             TModelsBase modelsBase)
             where TSchoolRatesGroupsBase : SchoolRatesGroupsBase
@@ -146,7 +154,7 @@
                 this.mapper.Map<TSchoolRatesGroupsBase>(modelsBase);
 
             toReturn.PartitionKey =
-                urn.ToString(CultureInfo.InvariantCulture);
+                $"{year.ToString(CultureInfo.InvariantCulture)}-{urn.ToString(CultureInfo.InvariantCulture)}";
 
             Type type = typeof(TSchoolRatesGroupsBase);
             toReturn.RowKey = type.Name;

@@ -91,6 +91,8 @@
                 .CreateTableAsync(cancellationToken)
                 .ConfigureAwait(false);
 
+            int year = configurationFile.Year;
+
             DomainModels.ModelsBase[] modelsBaseArray = modelsBases.ToArray();
 
             int length = modelsBaseArray.Length;
@@ -109,6 +111,7 @@
                     if (schoolInformation.Urn.HasValue)
                     {
                         await this.schoolInformationStorageAdapter.CreateAsync(
+                            year,
                             schoolInformation,
                             cancellationToken)
                             .ConfigureAwait(false);

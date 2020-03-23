@@ -6,7 +6,7 @@
     public interface ISchoolInformation
     {
         /// <summary>
-        /// Gets or sets the <c>Urn</c> value.
+        /// Gets or sets the urn.
         /// </summary>
         long? Urn
         {

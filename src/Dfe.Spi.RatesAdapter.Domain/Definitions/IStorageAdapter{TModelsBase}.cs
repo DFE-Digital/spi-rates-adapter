@@ -27,6 +27,9 @@
         /// <summary>
         /// Creates an instance of type <typeparamref name="TModelsBase" />.
         /// </summary>
+        /// <param name="year">
+        /// Gets or sets the year. Used in creating the partition key.
+        /// </param>
         /// <param name="modelsBase">
         /// An instance of type <typeparamref name="TModelsBase" />.
         /// </param>
@@ -37,6 +40,7 @@
         /// A <see cref="Task"/> representing the asynchronous operation.
         /// </returns>
         Task CreateAsync(
+            int year,
             TModelsBase modelsBase,
             CancellationToken cancellationToken);
     }

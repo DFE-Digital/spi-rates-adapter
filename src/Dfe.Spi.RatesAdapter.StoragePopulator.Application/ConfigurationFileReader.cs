@@ -5,7 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions;
-    using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.ConfigurationFileModels;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Models.ConfigurationFileModels;
     using Newtonsoft.Json;
 
     /// <summary>

@@ -12,6 +12,8 @@
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.SpreadsheetProcessorModels;
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Models;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -105,6 +107,7 @@
             ServiceProvider toReturn = new ServiceCollection()
                 .AddScoped<ILoggerWrapper, LoggerWrapper>()
                 .AddScoped<IConfigurationFileReader, ConfigurationFileReader>()
+                .AddScoped<ISpreadsheetReader, SpreadsheetReader>()
                 .AddScoped<ISpreadsheetProcessor, SpreadsheetProcessor>()
                 .AddScoped<IProgram, Program>()
                 .BuildServiceProvider();

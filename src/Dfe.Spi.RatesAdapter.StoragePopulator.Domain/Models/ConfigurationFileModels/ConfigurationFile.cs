@@ -1,4 +1,4 @@
-﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.ConfigurationFileModels
+﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Models.ConfigurationFileModels
 {
     using System.Collections.Generic;
 

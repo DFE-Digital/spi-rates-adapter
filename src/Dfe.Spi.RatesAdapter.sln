@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.Storag
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dfe.Spi.RatesAdapter.StoragePopulator", "Dfe.Spi.RatesAdapter.StoragePopulator", "{CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Application", "Dfe.Spi.RatesAdapter.StoragePopulator.Application\Dfe.Spi.RatesAdapter.StoragePopulator.Application.csproj", "{72A0078A-6E93-4994-B88A-B51BE136A07F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Application", "Dfe.Spi.RatesAdapter.StoragePopulator.Application\Dfe.Spi.RatesAdapter.StoragePopulator.Application.csproj", "{72A0078A-6E93-4994-B88A-B51BE136A07F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Domain", "Dfe.Spi.RatesAdapter.StoragePopulator.Domain\Dfe.Spi.RatesAdapter.StoragePopulator.Domain.csproj", "{4A4325C1-3A8E-47AF-8208-EE87D364E609}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel", "Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel\Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.csproj", "{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4325C1-3A8E-47AF-8208-EE87D364E609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4325C1-3A8E-47AF-8208-EE87D364E609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4325C1-3A8E-47AF-8208-EE87D364E609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4325C1-3A8E-47AF-8208-EE87D364E609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +66,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A6532305-A63F-4716-B5A8-FD5148762670} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
 		{72A0078A-6E93-4994-B88A-B51BE136A07F} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
+		{4A4325C1-3A8E-47AF-8208-EE87D364E609} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
+		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C971D3B8-2B24-479C-AC76-88F515923554}

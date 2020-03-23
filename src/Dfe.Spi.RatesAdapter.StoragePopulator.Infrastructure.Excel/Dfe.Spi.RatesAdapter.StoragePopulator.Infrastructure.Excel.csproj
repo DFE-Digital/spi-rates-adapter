@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.StoragePopulator.Application.xml</DocumentationFile>
+    <DocumentationFile>Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Other -->
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+
     <!-- Development/Non-Runtime -->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" PrivateAssets="All" />

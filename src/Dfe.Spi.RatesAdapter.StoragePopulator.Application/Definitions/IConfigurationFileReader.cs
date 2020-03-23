@@ -2,7 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.ConfigurationFileModels;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Models.ConfigurationFileModels;
 
     /// <summary>
     /// Describes the operations of the <see cref="ConfigurationFile" />

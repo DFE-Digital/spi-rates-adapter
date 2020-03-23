@@ -10,9 +10,11 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using CsvHelper;
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Models.ConfigurationFileModels;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.Models;
     using ExcelDataReader;
     using DomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
@@ -26,6 +28,7 @@
         private readonly ILoggerWrapper loggerWrapper;
 
         private readonly Type[] allDomainModelTypes;
+        private readonly List<ExcelParseFailureLogEntry> excelParseFailureLogEntries;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="SpreadsheetReader" />
@@ -45,6 +48,9 @@
             Assembly assembly = type.Assembly;
 
             this.allDomainModelTypes = assembly.GetTypes();
+
+            this.excelParseFailureLogEntries =
+                new List<ExcelParseFailureLogEntry>();
         }
 
         /// <inheritdoc />
@@ -99,8 +105,26 @@
                 }
             }
 
+            this.SaveExcelParseFailureLog();
+
             return Task.FromResult<IEnumerable<DomainModels.ModelsBase>>(
                 toReturn);
+        }
+
+        private void SaveExcelParseFailureLog()
+        {
+            string filename =
+                $"{DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture)}.csv";
+
+            using (StreamWriter streamWriter = new StreamWriter(filename))
+            {
+                using (CsvWriter csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
+                {
+                    csvWriter.WriteRecords(this.excelParseFailureLogEntries);
+                }
+            }
+
+            this.loggerWrapper.Info($"Log file: \"{filename}\".");
         }
 
         private IEnumerable<DomainModels.ModelsBase> ReadRowAsync(
@@ -207,14 +231,34 @@
                         valueStr,
                         CultureInfo.InvariantCulture);
                 }
+                else
+                {
+                    throw new NotImplementedException(
+                        $"Please implement type {destinationType.Name}.");
+                }
             }
             catch (FormatException)
             {
-                // TODO: Log to an errors CSV, so we can property review.
+                // Because in Excel, indexes start at 1.
+                row++;
+                column++;
+
                 this.loggerWrapper.Warning(
                     $"Row #{row}, Column #{column}: Attempted to parse " +
                     $"\"{valueStr}\" to a {destinationType.Name}, but was " +
                     $"unable to.");
+
+                ExcelParseFailureLogEntry excelParseFailureLogEntry =
+                    new ExcelParseFailureLogEntry()
+                    {
+                        Row = row,
+                        Column = column,
+                        RequiredType = destinationType.FullName,
+                        StringValue = valueStr,
+                    };
+
+                this.excelParseFailureLogEntries.Add(
+                    excelParseFailureLogEntry);
             }
 
             return toReturn;

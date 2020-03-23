@@ -17,6 +17,9 @@
         /// <param name="configurationFile">
         /// An instance of <see cref="ConfigurationFile" />.
         /// </param>
+        /// <param name="spreadsheetFile">
+        /// A path to the spreadsheet file.
+        /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
         /// </param>
@@ -26,6 +29,7 @@
         /// </returns>
         Task<IEnumerable<RatesAdapter.Domain.Models.ModelsBase>> ReadAsync(
             ConfigurationFile configurationFile,
+            string spreadsheetFile,
             CancellationToken cancellationToken);
     }
 }

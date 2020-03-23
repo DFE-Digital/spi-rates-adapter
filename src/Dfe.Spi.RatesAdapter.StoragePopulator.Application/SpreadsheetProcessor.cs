@@ -58,9 +58,12 @@
                     .ConfigureAwait(false);
 
             // 2) Take mappings and call spreadsheet parser.
+            string spreadsheetFile = processRequest.SpreadsheetFile;
+
             IEnumerable<RatesAdapter.Domain.Models.ModelsBase> modelsBases =
                 await this.spreadsheetReader.ReadAsync(
                     configurationFile,
+                    spreadsheetFile,
                     cancellationToken)
                     .ConfigureAwait(false);
 

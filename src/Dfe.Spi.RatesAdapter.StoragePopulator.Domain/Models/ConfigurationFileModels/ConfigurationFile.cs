@@ -27,6 +27,15 @@
         }
 
         /// <summary>
+        /// Gets or sets the sheet name in which to read from.
+        /// </summary>
+        public string SheetName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets a set of <see cref="ColumnMappingConfiguration" />
         /// instances.
         /// </summary>

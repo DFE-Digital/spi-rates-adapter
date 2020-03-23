@@ -262,6 +262,7 @@ __pycache__/
 
 # Settings
 local.settings.json
+launchSettings.json
 
 # XML Docs
 Dfe.Spi.RatesAdapter.*.xml

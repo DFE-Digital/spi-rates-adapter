@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the <c>IllustrativeTotalNFFFunding</c> value.
         /// </summary>
-        long IllustrativeTotalNFFFunding
+        long? IllustrativeTotalNffFunding
         {
             get;
             set;

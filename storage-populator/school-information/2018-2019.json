@@ -1,0 +1,30 @@
+{
+  "spreadsheetColumnMappingConfigurations": [
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
+      "spreadsheetColumnMappings": {
+        "Region": "A"
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.BaselineFunding",
+      "spreadsheetColumnMappings": {
+        "Value": "J"
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.IllustrativeFunding",
+      "spreadsheetColumnMappings": {
+        "IllustrativeTotalNffFunding": "O"
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
+      "spreadsheetColumnMappings": {
+        "NotionalTotalNffFunding": "L"
+      }
+    }
+  ],
+  "spreadsheetFirstRow": 40,
+  "spreadsheetLastRow": 20247
+}

@@ -9,7 +9,7 @@
         : SchoolRatesGroupsBase, IIllustrativeFunding
     {
         /// <inheritdoc />
-        public long IllustrativeTotalNFFFunding
+        public long? IllustrativeTotalNffFunding
         {
             get;
             set;

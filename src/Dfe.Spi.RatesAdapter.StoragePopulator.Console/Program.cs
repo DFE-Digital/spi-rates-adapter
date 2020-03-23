@@ -1,0 +1,118 @@
+﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp
+{
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
+    using CommandLine;
+    using Dfe.Spi.Common.Logging.Definitions;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Application;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions.Processors;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.SpreadsheetProcessorModels;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Models;
+    using Microsoft.Extensions.DependencyInjection;
+
+    /// <summary>
+    /// Main entry class for the console app.
+    /// </summary>
+    public class Program : IProgram
+    {
+        private readonly ISpreadsheetProcessor spreadsheetProcessor;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="Program" /> class.
+        /// </summary>
+        /// <param name="spreadsheetProcessor">
+        /// An instance of type <see cref="ISpreadsheetProcessor" />.
+        /// </param>
+        public Program(ISpreadsheetProcessor spreadsheetProcessor)
+        {
+            this.spreadsheetProcessor = spreadsheetProcessor;
+        }
+
+        /// <summary>
+        /// Main entry method for the console app.
+        /// </summary>
+        /// <param name="args">
+        /// The command line arguments.
+        /// </param>
+        /// <returns>
+        /// An exit code for the application process.
+        /// </returns>
+        [ExcludeFromCodeCoverage]
+        public static int Main(string[] args)
+        {
+            int toReturn = -1;
+
+            Parser.Default
+                .ParseArguments<Options>(args)
+                .WithParsed(x =>
+                {
+                    toReturn = InvokeRun(x);
+                });
+
+            return toReturn;
+        }
+
+        /// <inheritdoc />
+        public async Task<int> RunAsync(Options options)
+        {
+            int toReturn = 0;
+
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            ProcessRequest processRequest = Map(options);
+
+            ProcessResponse processResponse =
+                await this.spreadsheetProcessor.ProcessAsync(processRequest)
+                    .ConfigureAwait(false);
+
+            return toReturn;
+        }
+
+        [ExcludeFromCodeCoverage]
+        private static int InvokeRun(Options options)
+        {
+            int toReturn = -1;
+
+            using (ServiceProvider serviceProvider = CreateServiceProvider())
+            {
+                IProgram program = serviceProvider.GetService<IProgram>();
+
+                Task<int> runAsyncTask = program.RunAsync(options);
+
+                toReturn = runAsyncTask.Result;
+            }
+
+            return toReturn;
+        }
+
+        [ExcludeFromCodeCoverage]
+        private static ServiceProvider CreateServiceProvider()
+        {
+            ServiceProvider toReturn = new ServiceCollection()
+                .AddScoped<ILoggerWrapper, LoggerWrapper>()
+                .AddScoped<ISpreadsheetProcessor, SpreadsheetProcessor>()
+                .AddScoped<IProgram, Program>()
+                .BuildServiceProvider();
+
+            return toReturn;
+        }
+
+        private static ProcessRequest Map(Options options)
+        {
+            ProcessRequest toReturn = new ProcessRequest()
+            {
+                StorageConnectionString = options.StorageConnectionString,
+                TableName = options.TableName,
+                SpreadsheetFile = options.SpreadsheetFile,
+                ConfigFile = options.ConfigFile,
+            };
+
+            return toReturn;
+        }
+    }
+}

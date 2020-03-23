@@ -8,7 +8,7 @@
     public class NotionalFunding : SchoolRatesGroupsBase, INotionalFunding
     {
         /// <inheritdoc />
-        public long NotionalTotalNFFFunding
+        public long? NotionalTotalNffFunding
         {
             get;
             set;

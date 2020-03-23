@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.Domain", "Dfe.Spi.RatesAdapter.Domain\Dfe.Spi.RatesAdapter.Domain.csproj", "{B148E206-3243-4782-93D0-314E07A6E294}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage", "Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage\Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.csproj", "{E6D9ACD4-1130-401F-BD72-E1E281BC94A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage", "Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage\Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.csproj", "{E6D9ACD4-1130-401F-BD72-E1E281BC94A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp", "Dfe.Spi.RatesAdapter.StoragePopulator.Console\Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.csproj", "{A6532305-A63F-4716-B5A8-FD5148762670}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dfe.Spi.RatesAdapter.StoragePopulator", "Dfe.Spi.RatesAdapter.StoragePopulator", "{CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Application", "Dfe.Spi.RatesAdapter.StoragePopulator.Application\Dfe.Spi.RatesAdapter.StoragePopulator.Application.csproj", "{72A0078A-6E93-4994-B88A-B51BE136A07F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{E6D9ACD4-1130-401F-BD72-E1E281BC94A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6D9ACD4-1130-401F-BD72-E1E281BC94A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6D9ACD4-1130-401F-BD72-E1E281BC94A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6532305-A63F-4716-B5A8-FD5148762670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6532305-A63F-4716-B5A8-FD5148762670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6532305-A63F-4716-B5A8-FD5148762670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6532305-A63F-4716-B5A8-FD5148762670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A0078A-6E93-4994-B88A-B51BE136A07F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A6532305-A63F-4716-B5A8-FD5148762670} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
+		{72A0078A-6E93-4994-B88A-B51BE136A07F} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C971D3B8-2B24-479C-AC76-88F515923554}

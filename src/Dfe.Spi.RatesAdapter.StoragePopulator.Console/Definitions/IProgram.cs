@@ -1,0 +1,24 @@
+﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions
+{
+    using System.Threading.Tasks;
+
+    using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Models;
+
+    /// <summary>
+    /// Describes the operations of the main entry point class.
+    /// </summary>
+    public interface IProgram
+    {
+        /// <summary>
+        /// The main, non/static entry method. Where dependency injection
+        /// begins.
+        /// </summary>
+        /// <param name="options">
+        /// An instance of <see cref="Options" />.
+        /// </param>
+        /// <returns>
+        /// An exit code for the application process.
+        /// </returns>
+        Task<int> RunAsync(Options options);
+    }
+}

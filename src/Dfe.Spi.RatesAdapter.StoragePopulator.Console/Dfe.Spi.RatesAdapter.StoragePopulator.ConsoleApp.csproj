@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>storage-populator</AssemblyName>
+    <DocumentationFile>Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Microsoft -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+
+    <!-- Other -->
+    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+
+    <!-- Development/Non-Runtime -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Spi.RatesAdapter.StoragePopulator.Application\Dfe.Spi.RatesAdapter.StoragePopulator.Application.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+</Project>

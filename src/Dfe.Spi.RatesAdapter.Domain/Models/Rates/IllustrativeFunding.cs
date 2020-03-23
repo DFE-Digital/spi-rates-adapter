@@ -8,7 +8,7 @@
     public class IllustrativeFunding : RatesBase, IIllustrativeFunding
     {
         /// <inheritdoc />
-        public long IllustrativeTotalNFFFunding
+        public long? IllustrativeTotalNffFunding
         {
             get;
             set;

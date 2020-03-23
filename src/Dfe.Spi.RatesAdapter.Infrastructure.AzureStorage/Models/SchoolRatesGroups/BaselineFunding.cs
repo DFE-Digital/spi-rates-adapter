@@ -8,7 +8,7 @@
     public class BaselineFunding : SchoolRatesGroupsBase, IBaselineFunding
     {
         /// <inheritdoc />
-        public long Value
+        public long? Value
         {
             get;
             set;

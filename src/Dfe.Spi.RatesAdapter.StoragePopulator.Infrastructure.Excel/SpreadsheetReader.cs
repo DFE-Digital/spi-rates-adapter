@@ -25,6 +25,7 @@
     {
         private static Type nullableBool = typeof(bool?);
         private static Type nullableDouble = typeof(double?);
+        private static Type nullableInt = typeof(int?);
         private static Type nullableShort = typeof(short?);
         private static Type nullableLong = typeof(long?);
 
@@ -287,6 +288,12 @@
                 else if (destinationType == nullableDouble)
                 {
                     toReturn = double.Parse(
+                        valueStr,
+                        CultureInfo.InvariantCulture);
+                }
+                else if (destinationType == nullableInt)
+                {
+                    toReturn = int.Parse(
                         valueStr,
                         CultureInfo.InvariantCulture);
                 }

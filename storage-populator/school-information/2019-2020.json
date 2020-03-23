@@ -29,21 +29,21 @@
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.IllustrativeFunding",
       "columnMappings": {
-        "TotalNffFunding": 14,
-        "PercentageChangeComparedToBaseline": 15,
-        "PercentageChangeInPupilLedFunding": 16,
-        "TotalNffFundingIfFullyImplemented": 17,
-        "NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented": 18,
-        "PercentageChangeComparedToBaselineIfFullyImplemented": 19,
-        "PercentageChangeInPupilLedFundingIfFullyImplemented": 20
+        "TotalNffFunding": 20,
+        "PercentageChangeComparedToBaseline": 23,
+        "NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented": 21,
+        "TotalNffFundingIfFullyImplementedPerPupil": 22,
+        "PercentageChangeInPupilLedFundingPerPupil": 24
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
       "columnMappings": {
-        "TotalNffFunding": 11,
-        "PercentageChangeComparedToBaseline": 12,
-        "PercentageChangeInPupilLedFunding": 13
+        "TotalNffFunding": 16,
+        "PercentageChangeComparedToBaseline": 18,
+        "PupilCount": 15,
+        "TotalNffFundingPerPupil": 17,
+        "PercentageChangeInPupilLedFundingPerPupil": 19
       }
     }
   ],

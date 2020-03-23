@@ -27,5 +27,26 @@
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public int? PupilCount
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public long? TotalNffFundingPerPupil
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeInPupilLedFundingPerPupil
+        {
+            get;
+            set;
+        }
     }
 }

@@ -22,7 +22,7 @@
         }
 
         /// <inheritdoc />
-        public double? PercentageChangeInPupilLedFunding
+        public long? NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented
         {
             get;
             set;
@@ -36,7 +36,7 @@
         }
 
         /// <inheritdoc />
-        public long? NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented
+        public double? PercentageChangeInPupilLedFunding
         {
             get;
             set;
@@ -51,6 +51,20 @@
 
         /// <inheritdoc />
         public double? PercentageChangeInPupilLedFundingIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public long? TotalNffFundingIfFullyImplementedPerPupil
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeInPupilLedFundingPerPupil
         {
             get;
             set;

@@ -9,6 +9,14 @@
     public class SchoolInformation : SchoolRatesGroupsBase, ISchoolInformation
     {
         /// <inheritdoc />
+        [IgnoreProperty]
+        public long? Urn
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public string Region
         {
             get;
@@ -16,8 +24,49 @@
         }
 
         /// <inheritdoc />
-        [IgnoreProperty]
-        public long? Urn
+        public long? LaEstab
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string LaName
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public short? LaNumber
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public bool? NewAndGrowing
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public bool? PartiallyOpen
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string Phase
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string SchoolName
         {
             get;
             set;

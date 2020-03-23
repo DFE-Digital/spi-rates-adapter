@@ -22,6 +22,55 @@
             set;
         }
 
+        /// <inheritdoc />
+        public long? LaEstab
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string LaName
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public short? LaNumber
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public bool? NewAndGrowing
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public bool? PartiallyOpen
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string Phase
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string SchoolName
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Gets or sets an instance of <see cref="Rates.BaselineFunding" />.
         /// </summary>

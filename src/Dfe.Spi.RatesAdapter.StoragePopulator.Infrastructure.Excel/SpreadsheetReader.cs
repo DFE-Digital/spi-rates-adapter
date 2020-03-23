@@ -23,6 +23,8 @@
     /// </summary>
     public class SpreadsheetReader : ISpreadsheetReader
     {
+        private static Type nullableBool = typeof(bool?);
+        private static Type nullableShort = typeof(short?);
         private static Type nullableLong = typeof(long?);
 
         private readonly ILoggerWrapper loggerWrapper;
@@ -265,6 +267,21 @@
                     toReturn = long.Parse(
                         valueStr,
                         CultureInfo.InvariantCulture);
+                }
+                else if (destinationType == nullableShort)
+                {
+                    toReturn = short.Parse(
+                        valueStr,
+                        CultureInfo.InvariantCulture);
+                }
+                else if (destinationType == nullableBool)
+                {
+                    // We want to return null if the value is empty.
+                    if (!string.IsNullOrEmpty(valueStr))
+                    {
+                        // Otherwise..
+                        toReturn = valueStr == "Yes";
+                    }
                 }
                 else
                 {

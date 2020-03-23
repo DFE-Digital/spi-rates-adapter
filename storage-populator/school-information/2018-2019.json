@@ -3,8 +3,15 @@
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
       "columnMappings": {
+        "Urn": 4,
         "Region": 0,
-        "Urn": 4
+        "LaEstab": 3,
+        "LaName": 2,
+        "LaNumber": 1,
+        "NewAndGrowing": 8,
+        "PartiallyOpen": 7,
+        "Phase": 6,
+        "SchoolName": 5
       }
     },
     {

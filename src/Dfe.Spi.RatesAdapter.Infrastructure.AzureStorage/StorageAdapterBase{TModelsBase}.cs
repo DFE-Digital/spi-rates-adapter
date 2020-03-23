@@ -104,12 +104,10 @@
         /// <returns>
         /// A <see cref="Task"/> representing the asynchronous operation.
         /// </returns>
-        protected Task CreateAsync(
+        protected async Task CreateAsync(
             IEnumerable<ModelsBase> modelsBases,
             CancellationToken cancellationToken)
         {
-            Task toReturn = null;
-
             if (modelsBases == null)
             {
                 throw new ArgumentNullException(nameof(modelsBases));
@@ -129,13 +127,10 @@
             int count = tableBatchOperation.Count;
             this.loggerWrapper.Debug($"Inserting batch of size {count}...");
 
-            // Fire and forget.
-            this.CloudTable.ExecuteBatchAsync(tableBatchOperation)
+            await this.CloudTable.ExecuteBatchAsync(tableBatchOperation)
                 .ConfigureAwait(false);
 
-            toReturn = Task.CompletedTask;
-
-            return toReturn;
+            this.loggerWrapper.Info($"Inserted batch of size {count}.");
         }
     }
 }

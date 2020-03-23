@@ -6,7 +6,8 @@
     public interface ISchoolInformation
     {
         /// <summary>
-        /// Gets or sets the urn.
+        /// Gets or sets the Urn.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         long? Urn
         {
@@ -16,6 +17,7 @@
 
         /// <summary>
         /// Gets or sets the <c>Region</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         string Region
         {
@@ -25,6 +27,7 @@
 
         /// <summary>
         /// Gets or sets the <c>LaEstab</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         long? LaEstab
         {
@@ -34,6 +37,7 @@
 
         /// <summary>
         /// Gets or sets the <c>LaName</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         string LaName
         {
@@ -43,6 +47,7 @@
 
         /// <summary>
         /// Gets or sets the <c>LaNumber</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         short? LaNumber
         {
@@ -52,6 +57,7 @@
 
         /// <summary>
         /// Gets or sets the <c>NewAndGrowing</c> value.
+        /// Spreadsheets: 2018, 2019.
         /// </summary>
         bool? NewAndGrowing
         {
@@ -61,6 +67,7 @@
 
         /// <summary>
         /// Gets or sets the <c>PartiallyOpen</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         bool? PartiallyOpen
         {
@@ -70,6 +77,7 @@
 
         /// <summary>
         /// Gets or sets the <c>Phase</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         string Phase
         {
@@ -79,8 +87,19 @@
 
         /// <summary>
         /// Gets or sets the <c>SchoolName</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
         string SchoolName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>TheoreticalBaselineExists</c> value.
+        /// Spreadsheets: 2020.
+        /// </summary>
+        bool? TheoreticalBaselineExists
         {
             get;
             set;

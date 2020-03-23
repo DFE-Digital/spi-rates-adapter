@@ -7,9 +7,21 @@
     {
         /// <summary>
         /// Gets or sets the <c>BaselineFunding</c> value.
-        /// Spreadsheets: 2018, 2019.
+        /// Spreadsheets: 2018, 2019, 2020.
         /// </summary>
-        long? Value
+        double? Value
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>PupilCount</c> value.
+        /// Note: A double, because helpfully, on the 2020 spreadsheet, it is
+        ///       a double (quite how that works is anyone's best guess).
+        /// Spreadsheets: 2019, 2020.
+        /// </summary>
+        double? PupilCount
         {
             get;
             set;
@@ -20,16 +32,6 @@
         /// Spreadsheets: 2018.
         /// </summary>
         long? BaselineFundingFullSchool
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the <c>PupilCount</c> value.
-        /// Spreadsheets: 2019.
-        /// </summary>
-        int? PupilCount
         {
             get;
             set;

@@ -71,5 +71,12 @@
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public bool? TheoreticalBaselineExists
+        {
+            get;
+            set;
+        }
     }
 }

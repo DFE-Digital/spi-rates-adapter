@@ -71,6 +71,13 @@
             set;
         }
 
+        /// <inheritdoc />
+        public bool? TheoreticalBaselineExists
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Gets or sets an instance of <see cref="Rates.BaselineFunding" />.
         /// </summary>

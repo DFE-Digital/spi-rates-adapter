@@ -168,13 +168,15 @@
                     .Select(x => x as DomainModels.Rates.BaselineFunding)
                     .Single(x => x != null);
 
-                schoolInformation.IllustrativeFunding = modelParts
-                    .Select(x => x as DomainModels.Rates.IllustrativeFunding)
-                    .Single(x => x != null);
-
                 schoolInformation.NotionalFunding = modelParts
                     .Select(x => x as DomainModels.Rates.NotionalFunding)
                     .Single(x => x != null);
+
+                // Illustrative funding isn't available on the 2020
+                // spreadsheet.
+                schoolInformation.IllustrativeFunding = modelParts
+                    .Select(x => x as DomainModels.Rates.IllustrativeFunding)
+                    .SingleOrDefault(x => x != null);
 
                 toReturn = schoolInformation;
             }

@@ -1,0 +1,39 @@
+{
+  "year": 2020,
+  "columnMappingConfigurations": [
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
+      "columnMappings": {
+        "Urn": 4,
+        "Region": 0,
+        "LaEstab": 3,
+        "LaName": 2,
+        "LaNumber": 1,
+        "TheoreticalBaselineExists": 8,
+        "PartiallyOpen": 7,
+        "Phase": 6,
+        "SchoolName": 5
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.BaselineFunding",
+      "columnMappings": {
+        "Value": 10,
+        "PupilCount": 9
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
+      "columnMappings": {
+        "TotalNffFunding": 12,
+        "PercentageChangeComparedToBaseline": 14,
+        "PupilCount": 11,
+        "TotalNffFundingPerPupil": 13,
+        "PercentageChangeInPupilLedFundingPerPupil": 15
+      }
+    }
+  ],
+  "firstRow": 9,
+  "lastRow": 20217,
+  "sheetName": "NFF all schools"
+}

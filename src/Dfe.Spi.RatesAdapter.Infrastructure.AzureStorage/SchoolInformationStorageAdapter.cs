@@ -78,7 +78,7 @@
 
             long urn = schoolInformation.Urn.Value;
 
-            ModelsBase[] modelsBases = new ModelsBase[]
+            List<ModelsBase> modelsBases = new List<ModelsBase>
             {
                 this.Map<Domain.Models.SchoolInformation, SchoolInformation>(
                     year,
@@ -89,15 +89,22 @@
                     year,
                     urn,
                     schoolInformation.BaselineFunding),
-                this.Map<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
-                    year,
-                    urn,
-                    schoolInformation.IllustrativeFunding),
                 this.Map<Domain.Models.Rates.NotionalFunding, NotionalFunding>(
                     year,
                     urn,
                     schoolInformation.NotionalFunding),
             };
+
+            if (schoolInformation.IllustrativeFunding != null)
+            {
+                IllustrativeFunding illustrativeFunding =
+                    this.Map<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
+                        year,
+                        urn,
+                        schoolInformation.IllustrativeFunding);
+
+                modelsBases.Add(illustrativeFunding);
+            }
 
             this.loggerWrapper.Debug(
                 $"Inserting batch for {nameof(urn)} {urn}...");

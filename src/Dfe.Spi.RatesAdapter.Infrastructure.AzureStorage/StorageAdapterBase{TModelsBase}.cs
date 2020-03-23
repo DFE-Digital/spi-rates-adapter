@@ -73,20 +73,11 @@
         }
 
         /// <inheritdoc />
-        public async Task ClearStorageAsync(
+        public async Task CreateTableAsync(
             CancellationToken cancellationToken)
         {
             this.loggerWrapper.Debug(
-                $"Deleting table \"{this.CloudTable.Name}\"...");
-
-            await this.CloudTable.DeleteAsync(
-                null,
-                null,
-                cancellationToken)
-                .ConfigureAwait(false);
-
-            this.loggerWrapper.Info(
-                $"Table \"{this.CloudTable.Name}\" deleted. Recreating...");
+                $"Creating \"{this.CloudTable.Name}\"...");
 
             await this.CloudTable.CreateIfNotExistsAsync()
                 .ConfigureAwait(false);

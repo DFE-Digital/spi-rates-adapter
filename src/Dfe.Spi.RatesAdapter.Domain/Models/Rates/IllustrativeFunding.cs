@@ -8,7 +8,49 @@
     public class IllustrativeFunding : RatesBase, IIllustrativeFunding
     {
         /// <inheritdoc />
-        public long? IllustrativeTotalNffFunding
+        public long? TotalNffFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeComparedToBaseline
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeInPupilLedFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public long? TotalNffFundingIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public long? NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeComparedToBaselineIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeInPupilLedFundingIfFullyImplemented
         {
             get;
             set;

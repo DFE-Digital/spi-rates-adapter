@@ -88,7 +88,7 @@
             // 3) Take each entity and store in storage.
             // Clear storage first.
             await this.schoolInformationStorageAdapter
-                .ClearStorageAsync(cancellationToken)
+                .CreateTableAsync(cancellationToken)
                 .ConfigureAwait(false);
 
             DomainModels.ModelsBase[] modelsBaseArray = modelsBases.ToArray();

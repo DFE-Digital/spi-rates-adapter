@@ -14,7 +14,7 @@
         where TModelsBase : ModelsBase
     {
         /// <summary>
-        /// Clears the underlying storage of all entries.
+        /// Creates the underlying storage table.
         /// </summary>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
@@ -22,7 +22,7 @@
         /// <returns>
         /// A <see cref="Task"/> representing the asynchronous operation.
         /// </returns>
-        Task ClearStorageAsync(CancellationToken cancellationToken);
+        Task CreateTableAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Creates an instance of type <typeparamref name="TModelsBase" />.

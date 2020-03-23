@@ -24,6 +24,7 @@
     public class SpreadsheetReader : ISpreadsheetReader
     {
         private static Type nullableBool = typeof(bool?);
+        private static Type nullableDouble = typeof(double?);
         private static Type nullableShort = typeof(short?);
         private static Type nullableLong = typeof(long?);
 
@@ -282,6 +283,12 @@
                         // Otherwise..
                         toReturn = valueStr == "Yes";
                     }
+                }
+                else if (destinationType == nullableDouble)
+                {
+                    toReturn = double.Parse(
+                        valueStr,
+                        CultureInfo.InvariantCulture);
                 }
                 else
                 {

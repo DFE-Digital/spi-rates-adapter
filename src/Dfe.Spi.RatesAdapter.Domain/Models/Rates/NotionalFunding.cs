@@ -8,7 +8,21 @@
     public class NotionalFunding : RatesBase, INotionalFunding
     {
         /// <inheritdoc />
-        public long? NotionalTotalNffFunding
+        public long? TotalNffFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeComparedToBaseline
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PercentageChangeInPupilLedFunding
         {
             get;
             set;

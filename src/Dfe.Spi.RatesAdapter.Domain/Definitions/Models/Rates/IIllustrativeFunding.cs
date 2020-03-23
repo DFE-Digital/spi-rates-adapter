@@ -6,9 +6,66 @@
     public interface IIllustrativeFunding
     {
         /// <summary>
-        /// Gets or sets the <c>IllustrativeTotalNFFFunding</c> value.
+        /// Gets or sets the <c>TotalNffFunding</c> value.
         /// </summary>
-        long? IllustrativeTotalNffFunding
+        long? TotalNffFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>PercentageChangeComparedToBaseline</c> value.
+        /// </summary>
+        double? PercentageChangeComparedToBaseline
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>PercentageChangeInPupilLedFunding</c> value.
+        /// </summary>
+        double? PercentageChangeInPupilLedFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>TotalNffFundingIfFullyImplemented</c> value.
+        /// </summary>
+        long? TotalNffFundingIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented</c> value.
+        /// </summary>
+        long? NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>PercentageChangeComparedToBaselineIfFullyImplemented</c> value.
+        /// </summary>
+        double? PercentageChangeComparedToBaselineIfFullyImplemented
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>PercentageChangeInPupilLedFundingIfFullyImplemented</c> value.
+        /// </summary>
+        double? PercentageChangeInPupilLedFundingIfFullyImplemented
         {
             get;
             set;

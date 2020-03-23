@@ -76,44 +76,35 @@
 
             this.httpSpiExecutionContextManager.SetContext(headerDictionary);
 
-            Rates rates = null;
-            try
+            string[] idParts = id.Split(
+                new char[] { '-' },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            if (idParts.Length != 3)
             {
-                string[] idParts = id.Split(
-                    new char[] { '-' },
-                    StringSplitOptions.RemoveEmptyEntries);
-
-                if (idParts.Length != 3)
-                {
-                    // TODO: Throw some sort of exception.
-                }
-
-                string yearStr = idParts[0];
-
-                int year;
-                if (!int.TryParse(yearStr, out year))
-                {
-                    // TODO: Throw an exception.
-                }
-
-                string entityName = idParts[1];
-                string identifier = idParts[2];
-
-                rates = await this.ratesManager.GetRatesAsync(
-                    year,
-                    entityName,
-                    identifier,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                // TODO: Throw some sort of exception.
             }
-            catch (NotImplementedException)
+
+            string yearStr = idParts[0];
+
+            int year;
+            if (!int.TryParse(yearStr, out year))
             {
-                // TODO: Remove when we're all implemented.
-                rates = new Rates()
-                {
-                    Name = "Rates for Learning Provider/LA",
-                };
+                // TODO: Throw an exception.
             }
+
+            string entityName = idParts[1];
+            string identifier = idParts[2];
+
+            Rates rates = await this.ratesManager.GetRatesAsync(
+                year,
+                entityName,
+                identifier,
+                cancellationToken)
+                .ConfigureAwait(false);
+
+            rates.Name =
+                $"Rates for year {year}, for {entityName} ({identifier})";
 
             JsonSerializerSettings jsonSerializerSettings =
                 JsonConvert.DefaultSettings();

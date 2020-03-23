@@ -79,7 +79,8 @@
         }
 
         /// <summary>
-        /// Gets or sets the <c>TotalNffFundingIfFullyImplementedPerPupil</c> value.
+        /// Gets or sets the <c>TotalNffFundingIfFullyImplementedPerPupil</c>
+        /// value.
         /// Spreadsheets: 2019.
         /// </summary>
         long? TotalNffFundingIfFullyImplementedPerPupil
@@ -89,7 +90,8 @@
         }
 
         /// <summary>
-        /// Gets or sets the <c>PercentageChangeInPupilLedFundingPerPupil</c> value.
+        /// Gets or sets the <c>PercentageChangeInPupilLedFundingPerPupil</c>
+        /// value.
         /// Spreadsheets: 2019.
         /// </summary>
         double? PercentageChangeInPupilLedFundingPerPupil

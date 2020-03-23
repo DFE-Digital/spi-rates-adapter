@@ -1,5 +1,6 @@
 ﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Models;
@@ -16,9 +17,14 @@
         /// <param name="options">
         /// An instance of <see cref="Options" />.
         /// </param>
+        /// <param name="cancellationToken">
+        /// An instance of <see cref="CancellationToken" />.
+        /// </param>
         /// <returns>
         /// An exit code for the application process.
         /// </returns>
-        Task<int> RunAsync(Options options);
+        Task<int> RunAsync(
+            Options options,
+            CancellationToken cancellationToken);
     }
 }

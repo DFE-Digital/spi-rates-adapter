@@ -1,30 +1,30 @@
 {
-  "spreadsheetColumnMappingConfigurations": [
+  "columnMappingConfigurations": [
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
-      "spreadsheetColumnMappings": {
+      "columnMappings": {
         "Region": "A"
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.BaselineFunding",
-      "spreadsheetColumnMappings": {
+      "columnMappings": {
         "Value": "J"
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.IllustrativeFunding",
-      "spreadsheetColumnMappings": {
+      "columnMappings": {
         "IllustrativeTotalNffFunding": "O"
       }
     },
     {
       "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
-      "spreadsheetColumnMappings": {
+      "columnMappings": {
         "NotionalTotalNffFunding": "L"
       }
     }
   ],
-  "spreadsheetFirstRow": 40,
-  "spreadsheetLastRow": 20247
+  "firstRow": 40,
+  "lastRow": 20247
 }

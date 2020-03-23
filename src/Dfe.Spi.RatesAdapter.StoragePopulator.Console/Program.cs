@@ -2,10 +2,12 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
     using System.Threading.Tasks;
     using CommandLine;
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions.Processors;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.SpreadsheetProcessorModels;
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions;
@@ -55,7 +57,9 @@
         }
 
         /// <inheritdoc />
-        public async Task<int> RunAsync(Options options)
+        public async Task<int> RunAsync(
+            Options options,
+            CancellationToken cancellationToken)
         {
             int toReturn = 0;
 
@@ -67,7 +71,9 @@
             ProcessRequest processRequest = Map(options);
 
             ProcessResponse processResponse =
-                await this.spreadsheetProcessor.ProcessAsync(processRequest)
+                await this.spreadsheetProcessor.ProcessAsync(
+                    processRequest,
+                    cancellationToken)
                     .ConfigureAwait(false);
 
             return toReturn;
@@ -82,7 +88,10 @@
             {
                 IProgram program = serviceProvider.GetService<IProgram>();
 
-                Task<int> runAsyncTask = program.RunAsync(options);
+                CancellationToken cancellationToken = CancellationToken.None;
+                Task<int> runAsyncTask = program.RunAsync(
+                    options,
+                    cancellationToken);
 
                 toReturn = runAsyncTask.Result;
             }
@@ -95,6 +104,7 @@
         {
             ServiceProvider toReturn = new ServiceCollection()
                 .AddScoped<ILoggerWrapper, LoggerWrapper>()
+                .AddScoped<IConfigurationFileReader, ConfigurationFileReader>()
                 .AddScoped<ISpreadsheetProcessor, SpreadsheetProcessor>()
                 .AddScoped<IProgram, Program>()
                 .BuildServiceProvider();

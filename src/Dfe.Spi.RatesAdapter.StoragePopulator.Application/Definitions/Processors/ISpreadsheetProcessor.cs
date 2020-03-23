@@ -1,5 +1,6 @@
 ﻿namespace Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions.Processors
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.SpreadsheetProcessorModels;
 
@@ -16,9 +17,14 @@
         /// <param name="processRequest">
         /// An instance of <see cref="ProcessRequest" />.
         /// </param>
+        /// <param name="cancellationToken">
+        /// An instance of <see cref="CancellationToken" />.
+        /// </param>
         /// <returns>
         /// An instance of <see cref="ProcessResponse" />.
         /// </returns>
-        Task<ProcessResponse> ProcessAsync(ProcessRequest processRequest);
+        Task<ProcessResponse> ProcessAsync(
+            ProcessRequest processRequest,
+            CancellationToken cancellationToken);
     }
 }

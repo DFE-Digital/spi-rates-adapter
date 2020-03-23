@@ -91,6 +91,7 @@
                     DataRow dataRow = null;
 
                     // 2) While we're not on the last row...
+                    this.loggerWrapper.Debug("Parsing spreadsheet...");
                     for (int i = 0; (i < dataTable.Rows.Count) && (i <= lastRow); i++)
                     {
                         dataRow = dataTable.Rows[i];
@@ -128,7 +129,9 @@
                 }
             }
 
-            this.loggerWrapper.Info($"Log file: \"{filename}\".");
+            this.loggerWrapper.Info(
+                $"Log file: \"{filename}\" " +
+                $"({this.excelParseFailureLogEntries.Count} entries).");
         }
 
         private DomainModels.ModelsBase ReadRowAsync(
@@ -310,11 +313,6 @@
                 // Because in Excel, indexes start at 1.
                 row++;
                 column++;
-
-                this.loggerWrapper.Warning(
-                    $"Row #{row}, Column #{column}: Attempted to parse " +
-                    $"\"{valueStr}\" to a {destinationType.Name}, but was " +
-                    $"unable to.");
 
                 ExcelParseFailureLogEntry excelParseFailureLogEntry =
                     new ExcelParseFailureLogEntry()

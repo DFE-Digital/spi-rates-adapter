@@ -14,6 +14,7 @@
     using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.SchoolRatesGroups;
+    using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
@@ -106,16 +107,20 @@
                 modelsBases.Add(illustrativeFunding);
             }
 
-            this.loggerWrapper.Debug(
-                $"Inserting batch for {nameof(urn)} {urn}...");
-
-            await this.CreateAsync(
-                modelsBases,
-                cancellationToken)
-                .ConfigureAwait(false);
-
-            this.loggerWrapper.Info(
-                $"Inserted batch for {nameof(urn)} {urn}.");
+            try
+            {
+                await this.CreateAsync(
+                    modelsBases,
+                    cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            catch (StorageException storageException)
+            {
+                this.loggerWrapper.Error(
+                    $"Note! Exception thrown whilst trying to insert record " +
+                    $"for {nameof(year)} {year}, {nameof(urn)} {urn}.",
+                    storageException);
+            }
         }
 
         /// <inheritdoc />

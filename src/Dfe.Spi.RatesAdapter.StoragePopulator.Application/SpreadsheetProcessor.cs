@@ -116,12 +116,7 @@
                             cancellationToken)
                             .ConfigureAwait(false);
 
-                        this.loggerWrapper.Info(
-                            $"Created " +
-                            $"{nameof(DomainModels.SchoolInformation)} " +
-                            $"{i}/{length}.");
-
-                        decimal percentage = (decimal)i / (decimal)length;
+                        decimal percentage = (decimal)i / length;
 
                         percentage *= 100;
 

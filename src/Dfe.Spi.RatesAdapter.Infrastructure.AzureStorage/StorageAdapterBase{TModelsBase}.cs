@@ -124,13 +124,8 @@
                 tableBatchOperation.Add(tableOperation);
             }
 
-            int count = tableBatchOperation.Count;
-            this.loggerWrapper.Debug($"Inserting batch of size {count}...");
-
             await this.CloudTable.ExecuteBatchAsync(tableBatchOperation)
                 .ConfigureAwait(false);
-
-            this.loggerWrapper.Info($"Inserted batch of size {count}.");
         }
     }
 }

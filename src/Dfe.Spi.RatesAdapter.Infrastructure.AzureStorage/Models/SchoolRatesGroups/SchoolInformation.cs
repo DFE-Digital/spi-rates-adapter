@@ -1,6 +1,7 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.SchoolRatesGroups
 {
-    using Dfe.Spi.RatesAdapter.Domain.Definition.Models;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.Models;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Implements <see cref="ISchoolInformation" />.
@@ -9,6 +10,14 @@
     {
         /// <inheritdoc />
         public string Region
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        [IgnoreProperty]
+        public long? Urn
         {
             get;
             set;

@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage\Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.csproj" />
     <ProjectReference Include="..\Dfe.Spi.RatesAdapter.StoragePopulator.Application\Dfe.Spi.RatesAdapter.StoragePopulator.Application.csproj" />
     <ProjectReference Include="..\Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel\Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.csproj" />
   </ItemGroup>

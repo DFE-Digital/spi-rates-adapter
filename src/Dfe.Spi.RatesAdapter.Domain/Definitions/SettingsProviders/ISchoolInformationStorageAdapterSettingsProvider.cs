@@ -1,4 +1,4 @@
-﻿namespace Dfe.Spi.RatesAdapter.Domain.Definition.SettingsProviders
+﻿namespace Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders
 {
     /// <summary>
     /// Describes the operations of the

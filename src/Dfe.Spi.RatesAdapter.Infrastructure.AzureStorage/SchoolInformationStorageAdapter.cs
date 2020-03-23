@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -9,9 +10,9 @@
     using AutoMapper;
     using Dfe.Spi.Common.AzureStorage;
     using Dfe.Spi.Common.Logging.Definitions;
-    using Dfe.Spi.RatesAdapter.Domain.Definition;
-    using Dfe.Spi.RatesAdapter.Domain.Definition.SettingsProviders;
-    using Dfe.Spi.RatesAdapter.Domain.Models;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.SchoolRatesGroups;
     using Microsoft.WindowsAzure.Storage.Table;
 
@@ -19,7 +20,7 @@
     /// Implements <see cref="ISchoolInformationStorageAdapter" />.
     /// </summary>
     public class SchoolInformationStorageAdapter
-        : StorageAdapterBase, ISchoolInformationStorageAdapter
+        : StorageAdapterBase<Domain.Models.SchoolInformation>, ISchoolInformationStorageAdapter
     {
         private readonly ILoggerWrapper loggerWrapper;
         private readonly IMapper mapper;
@@ -38,21 +39,71 @@
         public SchoolInformationStorageAdapter(
             ILoggerWrapper loggerWrapper,
             ISchoolInformationStorageAdapterSettingsProvider schoolInformationStorageAdapterSettingsProvider)
-            : base(schoolInformationStorageAdapterSettingsProvider)
+            : base(
+                loggerWrapper,
+                schoolInformationStorageAdapterSettingsProvider)
         {
             this.loggerWrapper = loggerWrapper;
 
             MapperConfiguration mapperConfiguration = new MapperConfiguration(
                 x =>
                 {
-                    x.CreateMap<Models.SchoolRatesGroups.SchoolInformation, Domain.Models.SchoolInformation>();
+                    x.CreateMap<SchoolInformation, Domain.Models.SchoolInformation>().ReverseMap();
 
-                    x.CreateMap<BaselineFunding, Domain.Models.Rates.BaselineFunding>();
-                    x.CreateMap<NotionalFunding, Domain.Models.Rates.NotionalFunding>();
-                    x.CreateMap<IllustrativeFunding, Domain.Models.Rates.IllustrativeFunding>();
+                    x.CreateMap<BaselineFunding, Domain.Models.Rates.BaselineFunding>().ReverseMap();
+                    x.CreateMap<NotionalFunding, Domain.Models.Rates.NotionalFunding>().ReverseMap();
+                    x.CreateMap<IllustrativeFunding, Domain.Models.Rates.IllustrativeFunding>().ReverseMap();
                 });
 
             this.mapper = mapperConfiguration.CreateMapper();
+        }
+
+        /// <inheritdoc />
+        public override async Task CreateAsync(
+            Domain.Models.SchoolInformation schoolInformation,
+            CancellationToken cancellationToken)
+        {
+            if (schoolInformation == null)
+            {
+                throw new ArgumentNullException(nameof(schoolInformation));
+            }
+
+            if (!schoolInformation.Urn.HasValue)
+            {
+                throw new DataException(
+                    $"A {nameof(schoolInformation.Urn)} is required in " +
+                    $"order to insert.");
+            }
+
+            long urn = schoolInformation.Urn.Value;
+
+            ModelsBase[] modelsBases = new ModelsBase[]
+            {
+                this.Map<Domain.Models.SchoolInformation, SchoolInformation>(
+                    urn,
+                    schoolInformation),
+
+                this.Map<Domain.Models.Rates.BaselineFunding, BaselineFunding>(
+                    urn,
+                    schoolInformation.BaselineFunding),
+                this.Map<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
+                    urn,
+                    schoolInformation.IllustrativeFunding),
+                this.Map<Domain.Models.Rates.NotionalFunding, NotionalFunding>(
+                    urn,
+                    schoolInformation.NotionalFunding),
+            };
+
+            this.loggerWrapper.Debug(
+                $"Inserting batch for {nameof(urn)} {urn}...");
+
+            await this.CreateAsync(
+                modelsBases,
+                cancellationToken)
+                .ConfigureAwait(false);
+
+            this.loggerWrapper.Info(
+                $"Inserted batch for {nameof(urn)} {urn}.");
         }
 
         /// <inheritdoc />
@@ -85,13 +136,31 @@
             return toReturn;
         }
 
+        private TSchoolRatesGroupsBase Map<TModelsBase, TSchoolRatesGroupsBase>(
+            long urn,
+            TModelsBase modelsBase)
+            where TSchoolRatesGroupsBase : SchoolRatesGroupsBase
+            where TModelsBase : Domain.Models.ModelsBase
+        {
+            TSchoolRatesGroupsBase toReturn =
+                this.mapper.Map<TSchoolRatesGroupsBase>(modelsBase);
+
+            toReturn.PartitionKey =
+                urn.ToString(CultureInfo.InvariantCulture);
+
+            Type type = typeof(TSchoolRatesGroupsBase);
+            toReturn.RowKey = type.Name;
+
+            return toReturn;
+        }
+
         private Domain.Models.SchoolInformation Map(
             IList<SchoolRatesGroupsBase> schoolRatesGroupsBases)
         {
             Domain.Models.SchoolInformation toReturn = null;
 
             toReturn =
-                this.ExtractAndMap<Domain.Models.SchoolInformation, Models.SchoolRatesGroups.SchoolInformation>(
+                this.ExtractAndMap<Domain.Models.SchoolInformation, SchoolInformation>(
                     schoolRatesGroupsBases);
 
             toReturn.BaselineFunding =
@@ -112,7 +181,7 @@
         private TModelsBase ExtractAndMap<TModelsBase, TSchoolRatesGroupsBase>(
             IList<SchoolRatesGroupsBase> schoolRatesGroupsBases)
             where TSchoolRatesGroupsBase : SchoolRatesGroupsBase
-            where TModelsBase : ModelsBase
+            where TModelsBase : Domain.Models.ModelsBase
         {
             TModelsBase toReturn = null;
 

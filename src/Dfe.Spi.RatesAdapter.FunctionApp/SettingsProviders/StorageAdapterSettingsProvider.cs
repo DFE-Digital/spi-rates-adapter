@@ -1,6 +1,6 @@
 ﻿namespace Dfe.Spi.RatesAdapter.FunctionApp.SettingsProviders
 {
-    using Dfe.Spi.RatesAdapter.Domain.Definition.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>

@@ -9,8 +9,8 @@
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.Application;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
-    using Dfe.Spi.RatesAdapter.Domain.Definition;
-    using Dfe.Spi.RatesAdapter.Domain.Definition.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
     using Dfe.Spi.RatesAdapter.FunctionApp.SettingsProviders;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage;
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;

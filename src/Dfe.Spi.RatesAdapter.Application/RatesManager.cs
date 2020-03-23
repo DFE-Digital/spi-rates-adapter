@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using Dfe.Spi.Models.Entities;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
-    using Dfe.Spi.RatesAdapter.Domain.Definition;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>

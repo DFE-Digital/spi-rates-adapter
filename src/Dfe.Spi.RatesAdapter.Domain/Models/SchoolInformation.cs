@@ -1,6 +1,6 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Domain.Models
 {
-    using Dfe.Spi.RatesAdapter.Domain.Definition.Models;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.Models;
     using Dfe.Spi.RatesAdapter.Domain.Models.Rates;
 
     /// <summary>
@@ -8,9 +8,14 @@
     /// </summary>
     public class SchoolInformation : ModelsBase, ISchoolInformation
     {
-        /// <summary>
-        /// Gets or sets the region.
-        /// </summary>
+        /// <inheritdoc />
+        public long? Urn
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
         public string Region
         {
             get;

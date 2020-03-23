@@ -1,6 +1,6 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Domain.Models.Rates
 {
-    using Dfe.Spi.RatesAdapter.Domain.Definition.Models.Rates;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.Models.Rates;
 
     /// <summary>
     /// Implements <see cref="IBaselineFunding" />.

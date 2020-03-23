@@ -1,4 +1,4 @@
-﻿namespace Dfe.Spi.RatesAdapter.Domain.Definition.Models.Rates
+﻿namespace Dfe.Spi.RatesAdapter.Domain.Definitions.Models.Rates
 {
     /// <summary>
     /// Describes the properties of a notional funding model.

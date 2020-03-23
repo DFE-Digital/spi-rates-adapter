@@ -1,4 +1,4 @@
-﻿namespace Dfe.Spi.RatesAdapter.Domain.Definition
+﻿namespace Dfe.Spi.RatesAdapter.Domain.Definitions
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,6 +9,7 @@
     /// storage adapter.
     /// </summary>
     public interface ISchoolInformationStorageAdapter
+        : IStorageAdapter<SchoolInformation>
     {
         /// <summary>
         /// Gets an individual <see cref="SchoolInformation" /> instance from

@@ -6,12 +6,16 @@
     using System.Threading.Tasks;
     using CommandLine;
     using Dfe.Spi.Common.Logging.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Definitions.Processors;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Application.Models.SpreadsheetProcessorModels;
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.Models;
+    using Dfe.Spi.RatesAdapter.StoragePopulator.ConsoleApp.SettingsProvider;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel;
     using Microsoft.Extensions.DependencyInjection;
@@ -86,7 +90,12 @@
         {
             int toReturn = -1;
 
-            using (ServiceProvider serviceProvider = CreateServiceProvider())
+            SchoolInformationStorageAdapterSettingsProvider schoolInformationStorageAdapterSettingsProvider =
+                new SchoolInformationStorageAdapterSettingsProvider(
+                    options.StorageConnectionString,
+                    options.TableName);
+
+            using (ServiceProvider serviceProvider = CreateServiceProvider(schoolInformationStorageAdapterSettingsProvider))
             {
                 IProgram program = serviceProvider.GetService<IProgram>();
 
@@ -102,10 +111,13 @@
         }
 
         [ExcludeFromCodeCoverage]
-        private static ServiceProvider CreateServiceProvider()
+        private static ServiceProvider CreateServiceProvider(
+            SchoolInformationStorageAdapterSettingsProvider schoolInformationStorageAdapterSettingsProvider)
         {
             ServiceProvider toReturn = new ServiceCollection()
                 .AddScoped<ILoggerWrapper, LoggerWrapper>()
+                .AddSingleton<ISchoolInformationStorageAdapterSettingsProvider>(schoolInformationStorageAdapterSettingsProvider)
+                .AddScoped<ISchoolInformationStorageAdapter, SchoolInformationStorageAdapter>()
                 .AddScoped<IConfigurationFileReader, ConfigurationFileReader>()
                 .AddScoped<ISpreadsheetReader, SpreadsheetReader>()
                 .AddScoped<ISpreadsheetProcessor, SpreadsheetProcessor>()

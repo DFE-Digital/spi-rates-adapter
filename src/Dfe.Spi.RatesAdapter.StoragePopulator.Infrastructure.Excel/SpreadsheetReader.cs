@@ -72,7 +72,7 @@
             long firstRow = configurationFile.FirstRow;
             long lastRow = configurationFile.LastRow;
 
-            IEnumerable<DomainModels.ModelsBase> rowInstances = null;
+            DomainModels.ModelsBase rowInstance = null;
             using (FileStream fileStream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 using (IExcelDataReader excelDataReader = ExcelReaderFactory.CreateReader(fileStream))
@@ -94,12 +94,12 @@
                         // 1) Go to the first row.
                         if (i >= (firstRow - 1))
                         {
-                            rowInstances = this.ReadRowAsync(
+                            rowInstance = this.ReadRowAsync(
                                 configurationFile,
                                 i,
                                 dataRow);
 
-                            toReturn.AddRange(rowInstances);
+                            toReturn.Add(rowInstance);
                         }
                     }
                 }
@@ -127,12 +127,14 @@
             this.loggerWrapper.Info($"Log file: \"{filename}\".");
         }
 
-        private IEnumerable<DomainModels.ModelsBase> ReadRowAsync(
+        private DomainModels.ModelsBase ReadRowAsync(
             ConfigurationFile configurationFile,
             int row,
             DataRow dataRow)
         {
-            List<DomainModels.ModelsBase> toReturn =
+            DomainModels.ModelsBase toReturn = null;
+
+            List<DomainModels.ModelsBase> modelParts =
                 new List<DomainModels.ModelsBase>();
 
             // 3) Iterate through the configuration file and...
@@ -145,7 +147,40 @@
                     row,
                     dataRow);
 
-                toReturn.Add(modelsBase);
+                modelParts.Add(modelsBase);
+            }
+
+            // Join the models up, based on the instance type present.
+            // It can only be one.
+            modelsBase = modelParts
+                .SingleOrDefault(x => x is DomainModels.SchoolInformation);
+
+            if (modelsBase != null)
+            {
+                DomainModels.SchoolInformation schoolInformation =
+                    modelsBase as DomainModels.SchoolInformation;
+
+                schoolInformation.BaselineFunding = modelParts
+                    .Select(x => x as DomainModels.Rates.BaselineFunding)
+                    .Single(x => x != null);
+
+                schoolInformation.IllustrativeFunding = modelParts
+                    .Select(x => x as DomainModels.Rates.IllustrativeFunding)
+                    .Single(x => x != null);
+
+                schoolInformation.NotionalFunding = modelParts
+                    .Select(x => x as DomainModels.Rates.NotionalFunding)
+                    .Single(x => x != null);
+
+                toReturn = schoolInformation;
+            }
+            else
+            {
+                throw new NotImplementedException(
+                    $"No model of type " +
+                    $"{nameof(DomainModels.SchoolInformation)} present. Is " +
+                    $"there a different high-level entity we need to " +
+                    $"implement?");
             }
 
             return toReturn;

@@ -2,23 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.Domain.xml</DocumentationFile>
+    <DocumentationFile>Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Dfe.Spi.* -->
-    <PackageReference Include="Dfe.Spi.Common.Logging" Version="1.1.1" />
-
     <!-- Other -->
-    <PackageReference Include="Meridian.MeaningfulToString" Version="1.0.4" />
+    <PackageReference Include="CsvHelper" Version="15.0.2" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
 
     <!-- Development/Non-Runtime -->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" PrivateAssets="All" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Spi.RatesAdapter.StoragePopulator.Domain\Dfe.Spi.RatesAdapter.StoragePopulator.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

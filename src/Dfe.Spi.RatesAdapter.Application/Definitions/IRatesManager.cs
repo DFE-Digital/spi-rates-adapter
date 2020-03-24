@@ -11,10 +11,18 @@
     {
         /// <summary>
         /// Gets an instance of <see cref="Rates" /> by its
-        /// <paramref name="id" />.
+        /// <paramref name="identifier" />.
         /// </summary>
-        /// <param name="id">
-        /// The id of the <see cref="Rates" /> instance.
+        /// <param name="year">
+        /// The year of the <see cref="Rates" /> in which to return.
+        /// </param>
+        /// <param name="entityName">
+        /// The name of the entity in which to return <see cref="Rates" />
+        /// for.
+        /// </param>
+        /// <param name="identifier">
+        /// The identifier of the <see cref="Rates" /> instance, according
+        /// to the <paramref name="entityName" />.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
@@ -23,7 +31,9 @@
         /// An instance of <see cref="Rates" />.
         /// </returns>
         Task<Rates> GetRatesAsync(
-            string id,
+            int year,
+            string entityName,
+            string identifier,
             CancellationToken cancellationToken);
     }
 }

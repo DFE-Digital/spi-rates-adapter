@@ -9,6 +9,10 @@
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.Application;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.FunctionApp.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage;
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;
     using Microsoft.Azure.WebJobs.Logging;
     using Microsoft.Extensions.DependencyInjection;
@@ -49,13 +53,21 @@
                     SystemErrorIdentifier,
                     HttpErrorMessages.ResourceManager);
 
+            AddAdapters(serviceCollection);
             AddLogging(serviceCollection);
             AddManagers(serviceCollection);
+            AddSettingsProviders(serviceCollection);
 
             serviceCollection
                 .AddSingleton<IHttpErrorBodyResultProvider>(httpErrorBodyResultProvider)
                 .AddScoped<IHttpSpiExecutionContextManager, HttpSpiExecutionContextManager>()
                 .AddScoped<ISpiExecutionContextManager>(x => x.GetService<IHttpSpiExecutionContextManager>());
+        }
+
+        private static void AddAdapters(IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddScoped<ISchoolInformationStorageAdapter, SchoolInformationStorageAdapter>();
         }
 
         private static void AddLogging(IServiceCollection serviceCollection)
@@ -69,6 +81,13 @@
         {
             serviceCollection
                 .AddScoped<IRatesManager, RatesManager>();
+        }
+
+        private static void AddSettingsProviders(
+            IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddScoped<ISchoolInformationStorageAdapterSettingsProvider, SchoolInformationStorageAdapterSettingsProvider>();
         }
 
         private static ILogger CreateILogger(IServiceProvider serviceProvider)

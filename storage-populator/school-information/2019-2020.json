@@ -1,0 +1,53 @@
+{
+  "year": 2019,
+  "columnMappingConfigurations": [
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.SchoolInformation",
+      "columnMappings": {
+        "Urn": 4,
+        "Region": 0,
+        "LaEstab": 3,
+        "LaName": 2,
+        "LaNumber": 1,
+        "NewAndGrowing": 8,
+        "PartiallyOpen": 7,
+        "Phase": 6,
+        "SchoolName": 5
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.BaselineFunding",
+      "columnMappings": {
+        "Value": 11,
+        "PupilCount": 9,
+        "NewAndGrowingSchoolsPupilCountIfFull": 10,
+        "NewAndGrowingSchoolsValueIfFull": 12,
+        "ValuePerPupil": 13,
+        "NewAndGrowingSchoolsValuePerPupilIfFull": 14
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.IllustrativeFunding",
+      "columnMappings": {
+        "TotalNffFunding": 20,
+        "PercentageChangeComparedToBaseline": 23,
+        "NewAndGrowingSchoolsTotalNffFundingIfFullyImplemented": 21,
+        "TotalNffFundingIfFullyImplementedPerPupil": 22,
+        "PercentageChangeInPupilLedFundingPerPupil": 24
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.NotionalFunding",
+      "columnMappings": {
+        "TotalNffFunding": 16,
+        "PercentageChangeComparedToBaseline": 18,
+        "PupilCount": 15,
+        "TotalNffFundingPerPupil": 17,
+        "PercentageChangeInPupilLedFundingPerPupil": 19
+      }
+    }
+  ],
+  "firstRow": 29,
+  "lastRow": 20226,
+  "sheetName": "NFF all schools"
+}

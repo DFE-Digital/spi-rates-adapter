@@ -2,16 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.Domain.xml</DocumentationFile>
+    <DocumentationFile>Dfe.Spi.RatesAdapter.StoragePopulator.Application.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Dfe.Spi.* -->
-    <PackageReference Include="Dfe.Spi.Common.Logging" Version="1.1.1" />
-
-    <!-- Other -->
-    <PackageReference Include="Meridian.MeaningfulToString" Version="1.0.4" />
-
     <!-- Development/Non-Runtime -->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" PrivateAssets="All" />
@@ -19,6 +13,10 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Spi.RatesAdapter.StoragePopulator.Domain\Dfe.Spi.RatesAdapter.StoragePopulator.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

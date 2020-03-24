@@ -2,15 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.Domain.xml</DocumentationFile>
+    <DocumentationFile>Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Dfe.Spi.* -->
-    <PackageReference Include="Dfe.Spi.Common.Logging" Version="1.1.1" />
-
-    <!-- Other -->
-    <PackageReference Include="Meridian.MeaningfulToString" Version="1.0.4" />
+    <!-- Microsoft -->
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Dfe.Spi.Common.AzureStorage" Version="1.0.4" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.1" />
 
     <!-- Development/Non-Runtime -->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
@@ -19,6 +18,10 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Spi.RatesAdapter.Domain\Dfe.Spi.RatesAdapter.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

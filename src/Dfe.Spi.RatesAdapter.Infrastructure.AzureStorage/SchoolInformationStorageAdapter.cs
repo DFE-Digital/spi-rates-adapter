@@ -12,6 +12,7 @@
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Domain.Exceptions;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.SchoolRatesGroups;
     using Microsoft.WindowsAzure.Storage;
@@ -149,6 +150,11 @@
                     this.EntityResolver,
                     cancellationToken)
                     .ConfigureAwait(false);
+
+            if (schoolRatesGroupsBase.Count == 0)
+            {
+                throw new RatesNotFoundException(nameof(urn), urn);
+            }
 
             toReturn = this.Map(schoolRatesGroupsBase);
 

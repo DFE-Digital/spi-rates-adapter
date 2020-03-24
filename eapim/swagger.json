@@ -27,6 +27,55 @@
           }
         }
       }
+    },
+    "/rates/{id}": {
+      "get": {
+        "description": "Gets rates, for a specified identifier.",
+        "operationId": "get-rates",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "The id of the rates to return.",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token authentication.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-Internal-Request-Id",
+            "type": "string",
+            "description": "An internal request id. Should be a vaild guid.",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-External-Request-Id",
+            "type": "string",
+            "description": "An optional external request id. Used in logging."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A rates instance was found and is included in the body of the response.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Could not find the specified rates instance.",
+            "schema": {
+              "$ref": "#/definitions/http-error-body"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {

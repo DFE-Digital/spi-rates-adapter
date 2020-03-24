@@ -59,5 +59,50 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Rate identifier. The identifier of the Rate must follow the pattern: &quot;&lt;Year&gt;-&lt;Entity Name&gt;-&lt;Entity Identifier&gt;&quot;. For example, &quot;2019-LearningProvider-123456&quot;..
+        /// </summary>
+        internal static string _1 {
+            get {
+                return ResourceManager.GetString("_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Year &quot;{0}&quot; - the Year must be a valid integer..
+        /// </summary>
+        internal static string _2 {
+            get {
+                return ResourceManager.GetString("_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Entity Name &quot;{0}&quot;- getting rates via this entity it is not yet supported..
+        /// </summary>
+        internal static string _3 {
+            get {
+                return ResourceManager.GetString("_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Entity Identifier &quot;{0}&quot; - the {1} must be a {2}..
+        /// </summary>
+        internal static string _4 {
+            get {
+                return ResourceManager.GetString("_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find Rate with {0} &quot;{1}&quot; for year {2}..
+        /// </summary>
+        internal static string _5 {
+            get {
+                return ResourceManager.GetString("_5", resourceCulture);
+            }
+        }
     }
 }

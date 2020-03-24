@@ -1,12 +1,12 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Application
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Dfe.Spi.Models.Entities;
     using Dfe.Spi.Models.RatesModels;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions;
+    using Dfe.Spi.RatesAdapter.Domain.Exceptions;
     using LocalDomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>
@@ -44,7 +44,10 @@
                 long urn;
                 if (!long.TryParse(identifier, out urn))
                 {
-                    // TODO: Throw some sort of exception.
+                    throw new InvalidIdentifierException(
+                        nameof(urn),
+                        identifier,
+                        typeof(long));
                 }
 
                 LocalDomainModels.SchoolInformation schoolInformation =
@@ -58,8 +61,7 @@
             }
             else
             {
-                throw new NotImplementedException(
-                    "Not yet done! Implement me!");
+                throw new EntityNotImplementedException(entityName);
             }
 
             return toReturn;

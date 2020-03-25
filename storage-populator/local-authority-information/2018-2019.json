@@ -16,7 +16,8 @@
         "ActualSecondaryUnitOfFunding": 4,
         "PrimaryPupilNumbers": 5,
         "SecondaryPupilNumbers": 6,
-        "ActualFundingThroughGrowthPremesisMobilityFactors": 7
+        "ActualFundingThroughPremesisMobilityGrowthFactors": 7,
+        "ProvisionalNffSchoolsBlockFunding": 8
       }
     }
   ],

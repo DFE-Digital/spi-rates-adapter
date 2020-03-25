@@ -36,7 +36,49 @@
         }
 
         /// <inheritdoc />
-        public double? ActualFundingThroughGrowthPremesisMobilityFactors
+        public double? ActualFundingThroughPremesisMobilityGrowthFactors
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualFundingThroughPremesisMobilityFactors
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualFundingThroughPremesisFactors
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ProvisionalNffSchoolsBlockFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? IllustrativeGrowthFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? LocalAuthorityProtection
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ProvisionalNffSchoolsBlockFundingExcludingFundingThroughGrowthFactor
         {
             get;
             set;

@@ -51,10 +51,73 @@
 
         /// <summary>
         /// Gets or sets the
-        /// <c>ActualFundingThroughGrowthPremesisMobilityFactors</c> value.
+        /// <c>ActualFundingThroughPremesisMobilityGrowthFactors</c> value.
         /// Spreadsheets: 2018.
         /// </summary>
-        double? ActualFundingThroughGrowthPremesisMobilityFactors
+        double? ActualFundingThroughPremesisMobilityGrowthFactors
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>ActualFundingThroughPremesisMobilityFactors</c>
+        /// value.
+        /// Spreadsheets: 2019.
+        /// </summary>
+        double? ActualFundingThroughPremesisMobilityFactors
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>ActualFundingThroughPremesisFactors</c> value.
+        /// Spreadsheets: 2020.
+        /// </summary>
+        double? ActualFundingThroughPremesisFactors
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>ProvisionalNffSchoolsBlockFunding</c> value.
+        /// Spreadsheets: 2018, 2019.
+        /// </summary>
+        double? ProvisionalNffSchoolsBlockFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>IllustrativeGrowthFunding</c> value.
+        /// Spreadsheets: 2019.
+        /// </summary>
+        double? IllustrativeGrowthFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>LocalAuthorityProtection</c> value.
+        /// Spreadsheets: 2020.
+        /// </summary>
+        double? LocalAuthorityProtection
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>ProvisionalNffSchoolsBlockFundingExcludingFundingThroughGrowthFactor</c>
+        /// value.
+        /// Spreadsheets: 2020.
+        /// </summary>
+        double? ProvisionalNffSchoolsBlockFundingExcludingFundingThroughGrowthFactor
         {
             get;
             set;

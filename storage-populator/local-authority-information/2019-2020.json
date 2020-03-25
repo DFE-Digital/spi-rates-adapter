@@ -1,0 +1,16 @@
+{
+  "year": 2019,
+  "columnMappingConfigurations": [
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.LocalAuthorityInformation",
+      "columnMappings": {
+        "LaNumber": 1,
+        "Region": 0,
+        "LaName": 2
+      }
+    }
+  ],
+  "firstRow": 14,
+  "lastRow": 163,
+  "sheetName": "2019-20 allocations"
+}

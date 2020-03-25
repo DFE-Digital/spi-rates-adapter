@@ -124,7 +124,11 @@
                 tableBatchOperation.Add(tableOperation);
             }
 
-            await this.CloudTable.ExecuteBatchAsync(tableBatchOperation)
+            await this.CloudTable.ExecuteBatchAsync(
+                tableBatchOperation,
+                null,
+                null,
+                cancellationToken)
                 .ConfigureAwait(false);
         }
     }

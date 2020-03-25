@@ -1,6 +1,7 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Domain.Models
 {
     using Dfe.Spi.RatesAdapter.Domain.Definitions.Models;
+    using Dfe.Spi.RatesAdapter.Domain.Models.Rates;
 
     /// <summary>
     /// Implements <see cref="ILocalAuthorityInformation" />.
@@ -24,6 +25,16 @@
 
         /// <inheritdoc />
         public string Region
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets an instance of
+        /// <see cref="Rates.ProvisionalFunding" />.
+        /// </summary>
+        public ProvisionalFunding ProvisionalFunding
         {
             get;
             set;

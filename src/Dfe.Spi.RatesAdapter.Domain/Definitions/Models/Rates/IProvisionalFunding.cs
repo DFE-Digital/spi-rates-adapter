@@ -28,8 +28,10 @@
         /// <summary>
         /// Gets or sets the <c>PrimaryPupilNumbers</c> value.
         /// Spreadsheets: 2018, 2019, 2020.
+        /// NOTE: Spreadsheet 2018 contains a double for a value from this
+        ///       column.
         /// </summary>
-        long? PrimaryPupilNumbers
+        double? PrimaryPupilNumbers
         {
             get;
             set;
@@ -38,8 +40,10 @@
         /// <summary>
         /// Gets or sets the <c>SecondaryPupilNumbers</c> value.
         /// Spreadsheets: 2018, 2019, 2020.
+        /// NOTE: Spreadsheet 2018 contains a double for a value from this
+        ///       column.
         /// </summary>
-        long? SecondaryPupilNumbers
+        double? SecondaryPupilNumbers
         {
             get;
             set;

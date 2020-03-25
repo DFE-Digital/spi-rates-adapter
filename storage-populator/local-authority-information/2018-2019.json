@@ -8,6 +8,15 @@
         "Region": 0,
         "LaName": 2
       }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.ProvisionalFunding",
+      "columnMappings": {
+        "ActualPrimaryUnitOfFunding": 3,
+        "ActualSecondaryUnitOfFunding": 4,
+        "PrimaryPupilNumbers": 5,
+        "SecondaryPupilNumbers": 6
+      }
     }
   ],
   "firstRow": 16,

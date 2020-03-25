@@ -195,7 +195,10 @@
                 DomainModels.LocalAuthorityInformation localAuthorityInformation =
                     modelsBase as DomainModels.LocalAuthorityInformation;
 
-                // TODO: Do the stitching here.
+                localAuthorityInformation.ProvisionalFunding = modelParts
+                    .Select(x => x as DomainModels.Rates.ProvisionalFunding)
+                    .Single(x => x != null);
+
                 toReturn = localAuthorityInformation;
             }
 

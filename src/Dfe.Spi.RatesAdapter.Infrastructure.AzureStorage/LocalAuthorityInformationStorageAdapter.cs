@@ -47,7 +47,9 @@
             MapperConfiguration mapperConfiguration = new MapperConfiguration(
                 x =>
                 {
-                    x.CreateMap<LocalAuthorityInformation, Domain.Models.LocalAuthorityInformation>().ReverseMap();
+                    x.CreateMap<LocalAuthorityInformation, DomainModels.LocalAuthorityInformation>().ReverseMap();
+
+                    x.CreateMap<ProvisionalFunding, DomainModels.Rates.ProvisionalFunding>().ReverseMap();
                 });
 
             this.mapper = mapperConfiguration.CreateMapper();
@@ -76,12 +78,15 @@
 
             List<ModelsBase> modelsBases = new List<ModelsBase>()
             {
-                // TODO: Add any more sub-objects (i.e. ProvisionalFunding -
-                //       when I get there).
                 this.Map<DomainModels.LocalAuthorityInformation, LocalAuthorityInformation>(
                     year,
                     laNumber,
                     localAuthorityInformation),
+
+                this.Map<DomainModels.Rates.ProvisionalFunding, ProvisionalFunding>(
+                    year,
+                    laNumber,
+                    localAuthorityInformation.ProvisionalFunding),
             };
 
             try

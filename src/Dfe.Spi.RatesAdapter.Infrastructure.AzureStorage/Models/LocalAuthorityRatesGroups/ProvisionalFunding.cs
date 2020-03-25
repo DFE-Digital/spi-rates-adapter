@@ -58,7 +58,7 @@
         }
 
         /// <inheritdoc />
-        public double? ProvisionalNffSchoolsBlockFunding
+        public double? NffSchoolsBlockFunding
         {
             get;
             set;
@@ -79,7 +79,98 @@
         }
 
         /// <inheritdoc />
-        public double? ProvisionalNffSchoolsBlockFundingExcludingFundingThroughGrowthFactor
+        public double? NffSchoolsBlockFundingExcludingFundingThroughGrowthFactor
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualHighNeedsNffAllocations
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualAcaWeightedBasicEntitlementFactorUnitRate
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NumberOfPupilsInSpecialSchoolsAcadamies
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? AcaWeightedBasicEntitlementUnitRate
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? BasicEntitlementFactor
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NumberOfPupilsInSpecialSchoolsAcadamiesIndependentSettings
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ImportExportAdjustmentsIncludingAdjustmentsToNewAndGrowingSpecialFreeSchools
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? HospitalEducationFundingWithEightPercentUplift
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualImportExportAdjustmentUnitRate
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NetNumberOfImportedPupils
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? AdditionalFundingForNewAndGrowingSpecialFreeSchools
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? HospitalEducationSpending
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NffHighNeedsBlockFunding
         {
             get;
             set;

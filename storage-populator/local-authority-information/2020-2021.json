@@ -18,7 +18,16 @@
         "SecondaryPupilNumbers": 6,
         "ActualFundingThroughPremesisFactors": 7,
         "LocalAuthorityProtection": 8,
-        "ProvisionalNffSchoolsBlockFundingExcludingFundingThroughGrowthFactor": 9
+        "NffSchoolsBlockFundingExcludingFundingThroughGrowthFactor": 9,
+        "ActualHighNeedsNffAllocations": 10,
+        "NumberOfPupilsInSpecialSchoolsAcadamies": 11,
+        "AcaWeightedBasicEntitlementUnitRate": 12,
+        "BasicEntitlementFactor": 13,
+        "NetNumberOfImportedPupils": 14,
+        "AdditionalFundingForNewAndGrowingSpecialFreeSchools": 15,
+        "ImportExportAdjustmentsIncludingAdjustmentsToNewAndGrowingSpecialFreeSchools": 16,
+        "HospitalEducationFundingWithEightPercentUplift": 17,
+        "NffHighNeedsBlockFunding": 18
       }
     }
   ],

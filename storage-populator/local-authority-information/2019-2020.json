@@ -18,7 +18,14 @@
         "SecondaryPupilNumbers": 6,
         "ActualFundingThroughPremesisMobilityFactors": 7,
         "IllustrativeGrowthFunding": 8,
-        "ProvisionalNffSchoolsBlockFunding": 9
+        "NffSchoolsBlockFunding": 9,
+        "ActualHighNeedsNffAllocations": 10,
+        "ActualAcaWeightedBasicEntitlementFactorUnitRate": 11,
+        "NumberOfPupilsInSpecialSchoolsAcadamiesIndependentSettings": 12,
+        "ActualImportExportAdjustmentUnitRate": 13,
+        "NetNumberOfImportedPupils": 14,
+        "HospitalEducationSpending": 15,
+        "NffHighNeedsBlockFunding": 16
       }
     }
   ],

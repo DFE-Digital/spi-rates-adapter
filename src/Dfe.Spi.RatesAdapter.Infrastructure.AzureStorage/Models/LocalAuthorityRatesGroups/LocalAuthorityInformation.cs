@@ -7,7 +7,7 @@
     /// Implements <see cref="ILocalAuthorityInformation" />.
     /// </summary>
     public class LocalAuthorityInformation
-        : LocalAuthorityRatesBase, ILocalAuthorityInformation
+        : LocalAuthorityRatesGroupsBase, ILocalAuthorityInformation
     {
         /// <inheritdoc />
         [IgnoreProperty]

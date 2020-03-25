@@ -5,7 +5,7 @@
     /// <see cref="Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.LocalAuthorityRatesGroups" />
     /// namespace.
     /// </summary>
-    public abstract class LocalAuthorityRatesBase : ModelsBase
+    public abstract class LocalAuthorityRatesGroupsBase : ModelsBase
     {
         // Nothing.
     }

@@ -1,18 +1,29 @@
 ﻿namespace Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
+    using AutoMapper;
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
-    using Dfe.Spi.RatesAdapter.Domain.Models;
+    using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models;
+    using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.LocalAuthorityRatesGroups;
+    using Microsoft.WindowsAzure.Storage;
+    using DomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>
     /// Implements <see cref="ILocalAuthorityInformationStorageAdapter" />.
     /// </summary>
     public class LocalAuthorityInformationStorageAdapter
-        : StorageAdapterBase<LocalAuthorityInformation>, ILocalAuthorityInformationStorageAdapter
+        : StorageAdapterBase<DomainModels.LocalAuthorityInformation>, ILocalAuthorityInformationStorageAdapter
     {
+        private readonly ILoggerWrapper loggerWrapper;
+        private readonly IMapper mapper;
+
         /// <summary>
         /// Initialises a new instance of the
         /// <see cref="LocalAuthorityInformationStorageAdapter" /> class.
@@ -31,16 +42,82 @@
                   loggerWrapper,
                   localAuthorityInformationStorageAdapterSettingsProvider)
         {
-            // Nothing, for now.
+            this.loggerWrapper = loggerWrapper;
+
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(
+                x =>
+                {
+                    x.CreateMap<LocalAuthorityInformation, Domain.Models.LocalAuthorityInformation>().ReverseMap();
+                });
+
+            this.mapper = mapperConfiguration.CreateMapper();
         }
 
         /// <inheritdoc />
-        public override Task CreateAsync(
+        public async override Task CreateAsync(
             int year,
-            LocalAuthorityInformation localAuthorityInformation,
+            DomainModels.LocalAuthorityInformation localAuthorityInformation,
             CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (localAuthorityInformation == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(localAuthorityInformation));
+            }
+
+            if (!localAuthorityInformation.LaNumber.HasValue)
+            {
+                throw new DataException(
+                    $"A {nameof(localAuthorityInformation.LaNumber)} is " +
+                    $"required in order to insert.");
+            }
+
+            long laNumber = localAuthorityInformation.LaNumber.Value;
+
+            List<ModelsBase> modelsBases = new List<ModelsBase>()
+            {
+                // TODO: Add any more sub-objects (i.e. ProvisionalFunding -
+                //       when I get there).
+                this.Map<DomainModels.LocalAuthorityInformation, LocalAuthorityInformation>(
+                    year,
+                    laNumber,
+                    localAuthorityInformation),
+            };
+
+            try
+            {
+                await this.CreateAsync(
+                    modelsBases,
+                    cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            catch (StorageException storageException)
+            {
+                this.loggerWrapper.Error(
+                    $"Note! Exception thrown whilst trying to insert record " +
+                    $"for {nameof(year)} {year}, {nameof(laNumber)} " +
+                    $"{laNumber}.",
+                    storageException);
+            }
+        }
+
+        private TLocalAuthorityRatesGroupsBase Map<TModelsBase, TLocalAuthorityRatesGroupsBase>(
+            int year,
+            long laNumber,
+            TModelsBase modelsBase)
+            where TLocalAuthorityRatesGroupsBase : LocalAuthorityRatesGroupsBase
+            where TModelsBase : DomainModels.ModelsBase
+        {
+            TLocalAuthorityRatesGroupsBase toReturn =
+                this.mapper.Map<TLocalAuthorityRatesGroupsBase>(modelsBase);
+
+            toReturn.PartitionKey =
+                $"{year.ToString(CultureInfo.InvariantCulture)}-{laNumber.ToString(CultureInfo.InvariantCulture)}";
+
+            Type type = typeof(TLocalAuthorityRatesGroupsBase);
+            toReturn.RowKey = type.Name;
+
+            return toReturn;
         }
     }
 }

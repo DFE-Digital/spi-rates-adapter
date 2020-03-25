@@ -34,5 +34,12 @@
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public double? ActualFundingThroughGrowthPremesisMobilityFactors
+        {
+            get;
+            set;
+        }
     }
 }

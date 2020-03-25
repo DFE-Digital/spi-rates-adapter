@@ -48,5 +48,16 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>ActualFundingThroughGrowthPremesisMobilityFactors</c> value.
+        /// Spreadsheets: 2018.
+        /// </summary>
+        double? ActualFundingThroughGrowthPremesisMobilityFactors
+        {
+            get;
+            set;
+        }
     }
 }

@@ -164,6 +164,7 @@
 
             if (modelsBase != null)
             {
+                // Then stitch up into a proper SchoolInformation instance.
                 DomainModels.SchoolInformation schoolInformation =
                     modelsBase as DomainModels.SchoolInformation;
 
@@ -183,7 +184,22 @@
 
                 toReturn = schoolInformation;
             }
-            else
+
+            modelsBase = modelParts
+                .SingleOrDefault(x => x is DomainModels.LocalAuthorityInformation);
+
+            if (modelsBase != null)
+            {
+                // Then stitch up into a property LocalAuthorityInformation
+                // instance.
+                DomainModels.LocalAuthorityInformation localAuthorityInformation =
+                    modelsBase as DomainModels.LocalAuthorityInformation;
+
+                // TODO: Do the stitching here.
+                toReturn = localAuthorityInformation;
+            }
+
+            if (modelsBase == null)
             {
                 throw new NotImplementedException(
                     $"No model of type " +

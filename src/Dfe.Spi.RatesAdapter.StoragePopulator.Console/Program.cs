@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
     using CommandLine;
@@ -35,7 +36,14 @@
         /// </param>
         public Program(ISpreadsheetProcessor spreadsheetProcessor)
         {
+            if (spreadsheetProcessor == null)
+            {
+                throw new ArgumentNullException(nameof(spreadsheetProcessor));
+            }
+
             this.spreadsheetProcessor = spreadsheetProcessor;
+            this.spreadsheetProcessor.InsertionProgressReported +=
+                this.OnInsertionProgressReported;
         }
 
         /// <summary>
@@ -95,7 +103,12 @@
                     options.StorageConnectionString,
                     options.TableName);
 
-            using (ServiceProvider serviceProvider = CreateServiceProvider(schoolInformationStorageAdapterSettingsProvider))
+            LocalAuthorityInformationStorageAdapterSettingsProvider localAuthorityInformationStorageAdapterSettingsProvider =
+                new LocalAuthorityInformationStorageAdapterSettingsProvider(
+                    options.StorageConnectionString,
+                    options.TableName);
+
+            using (ServiceProvider serviceProvider = CreateServiceProvider(schoolInformationStorageAdapterSettingsProvider, localAuthorityInformationStorageAdapterSettingsProvider))
             {
                 IProgram program = serviceProvider.GetService<IProgram>();
 
@@ -112,12 +125,15 @@
 
         [ExcludeFromCodeCoverage]
         private static ServiceProvider CreateServiceProvider(
-            SchoolInformationStorageAdapterSettingsProvider schoolInformationStorageAdapterSettingsProvider)
+            SchoolInformationStorageAdapterSettingsProvider schoolInformationStorageAdapterSettingsProvider,
+            LocalAuthorityInformationStorageAdapterSettingsProvider localAuthorityInformationStorageAdapter)
         {
             ServiceProvider toReturn = new ServiceCollection()
                 .AddScoped<ILoggerWrapper, LoggerWrapper>()
                 .AddSingleton<ISchoolInformationStorageAdapterSettingsProvider>(schoolInformationStorageAdapterSettingsProvider)
+                .AddSingleton<ILocalAuthorityInformationStorageAdapterSettingsProvider>(localAuthorityInformationStorageAdapter)
                 .AddScoped<ISchoolInformationStorageAdapter, SchoolInformationStorageAdapter>()
+                .AddScoped<ILocalAuthorityInformationStorageAdapter, LocalAuthorityInformationStorageAdapter>()
                 .AddScoped<IConfigurationFileReader, ConfigurationFileReader>()
                 .AddScoped<ISpreadsheetReader, SpreadsheetReader>()
                 .AddScoped<ISpreadsheetProcessor, SpreadsheetProcessor>()
@@ -138,6 +154,13 @@
             };
 
             return toReturn;
+        }
+
+        private void OnInsertionProgressReported(decimal percentage)
+        {
+            Console.Title =
+                $"Record Insertion Progress: " +
+                $"{percentage.ToString("0.00", CultureInfo.InvariantCulture)}%...";
         }
     }
 }

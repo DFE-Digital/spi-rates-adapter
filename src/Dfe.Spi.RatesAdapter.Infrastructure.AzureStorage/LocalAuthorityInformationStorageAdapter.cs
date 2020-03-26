@@ -4,15 +4,19 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
+    using Dfe.Spi.Common.AzureStorage;
     using Dfe.Spi.Common.Logging.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions.SettingsProviders;
+    using Dfe.Spi.RatesAdapter.Domain.Exceptions;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models;
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.LocalAuthorityRatesGroups;
     using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
     using DomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>
@@ -106,6 +110,81 @@
             }
         }
 
+        /// <inheritdoc />
+        public async Task<DomainModels.LocalAuthorityInformation> GetLocalAuthorityInformationAsync(
+            int year,
+            short laNumber,
+            CancellationToken cancellationToken)
+        {
+            DomainModels.LocalAuthorityInformation toReturn = null;
+
+            string identifier =
+                $"{year.ToString(CultureInfo.InvariantCulture)}-{laNumber.ToString(CultureInfo.InvariantCulture)}";
+
+            TableQuery tableQuery = new TableQuery();
+
+            string filter = TableQuery.GenerateFilterCondition(
+                "PartitionKey",
+                QueryComparisons.Equal,
+                identifier);
+
+            tableQuery.Where(filter);
+
+            IList<LocalAuthorityRatesGroupsBase> localAuthorityRatesGroupsBase =
+                await this.CloudTable.ExecuteQueryAsync(
+                    tableQuery,
+                    this.EntityResolver,
+                    cancellationToken)
+                    .ConfigureAwait(false);
+
+            if (localAuthorityRatesGroupsBase.Count == 0)
+            {
+                throw new RatesNotFoundException();
+            }
+
+            toReturn = this.Map(localAuthorityRatesGroupsBase);
+
+            return toReturn;
+        }
+
+        private DomainModels.LocalAuthorityInformation Map(
+            IList<LocalAuthorityRatesGroupsBase> localAuthorityRatesGroupsBases)
+        {
+            DomainModels.LocalAuthorityInformation toReturn = null;
+
+            toReturn =
+                this.ExtractAndMap<DomainModels.LocalAuthorityInformation, LocalAuthorityInformation>(
+                    localAuthorityRatesGroupsBases);
+
+            toReturn.ProvisionalFunding =
+                this.ExtractAndMap<DomainModels.Rates.ProvisionalFunding, ProvisionalFunding>(
+                    localAuthorityRatesGroupsBases);
+
+            return toReturn;
+        }
+
+        private TModelsBase ExtractAndMap<TModelsBase, TSchoolRatesGroupsBase>(
+            IList<LocalAuthorityRatesGroupsBase> localAuthorityRatesGroupsBases)
+            where TSchoolRatesGroupsBase : LocalAuthorityRatesGroupsBase
+            where TModelsBase : DomainModels.ModelsBase
+        {
+            TModelsBase toReturn = null;
+
+            LocalAuthorityRatesGroupsBase localAuthorityRatesGroupsBase =
+                localAuthorityRatesGroupsBases.SingleOrDefault(x => x is TSchoolRatesGroupsBase);
+
+            if (localAuthorityRatesGroupsBase != null)
+            {
+                TSchoolRatesGroupsBase schoolRatesGroupsBaseTyped =
+                    localAuthorityRatesGroupsBase as TSchoolRatesGroupsBase;
+
+                toReturn = this.mapper.Map<TSchoolRatesGroupsBase, TModelsBase>(
+                    schoolRatesGroupsBaseTyped);
+            }
+
+            return toReturn;
+        }
+
         private TLocalAuthorityRatesGroupsBase Map<TModelsBase, TLocalAuthorityRatesGroupsBase>(
             int year,
             long laNumber,
@@ -121,6 +200,36 @@
 
             Type type = typeof(TLocalAuthorityRatesGroupsBase);
             toReturn.RowKey = type.Name;
+
+            return toReturn;
+        }
+
+        private LocalAuthorityRatesGroupsBase EntityResolver(
+            string partitionKey,
+            string rowKey,
+            DateTimeOffset timestamp,
+            IDictionary<string, EntityProperty> properties,
+            string etag)
+        {
+            LocalAuthorityRatesGroupsBase toReturn = null;
+
+            Type baseType = typeof(LocalAuthorityRatesGroupsBase);
+
+            string baseTypeNamespace = baseType.Namespace;
+
+            // rowKey is the entity type.
+            string typeName = $"{baseTypeNamespace}.{rowKey}";
+
+            Type type = Type.GetType(typeName);
+
+            toReturn = (LocalAuthorityRatesGroupsBase)Activator.CreateInstance(type);
+
+            toReturn.PartitionKey = partitionKey;
+            toReturn.RowKey = rowKey;
+            toReturn.Timestamp = timestamp;
+            toReturn.ETag = etag;
+
+            toReturn.ReadEntity(properties, null);
 
             return toReturn;
         }

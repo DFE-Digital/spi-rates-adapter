@@ -151,6 +151,10 @@
             {
               "name": "SchoolInformationTableName",
               "value": "SchoolInformation"
+            },
+            {
+              "name": "LocalAuthorityInformationTableName",
+              "value": "LocalAuthorityInformation"
             }
           ],
           "ipSecurityRestrictions": [

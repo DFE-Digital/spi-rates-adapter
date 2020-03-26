@@ -3,74 +3,56 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Dfe.Spi.Models.Entities;
-    using Dfe.Spi.Models.RatesModels;
+    using Dfe.Spi.Models.RatesModels.LearningProviderModels;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Definitions;
-    using Dfe.Spi.RatesAdapter.Domain.Exceptions;
     using LocalDomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>
-    /// Implements <see cref="IRatesManager" />.
+    /// Implements <see cref="ILearningProviderRatesManager" />.
     /// </summary>
-    public class RatesManager : IRatesManager
+    public class LearningProviderRatesManager : ILearningProviderRatesManager
     {
         private readonly ISchoolInformationStorageAdapter schoolInformationStorageAdapter;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="RatesManager" />
+        /// Initialises a new instance of the <see cref="LearningProviderRatesManager" />
         /// class.
         /// </summary>
         /// <param name="schoolInformationStorageAdapter">
         /// An instance of type
         /// <see cref="ISchoolInformationStorageAdapter" />.
         /// </param>
-        public RatesManager(
+        public LearningProviderRatesManager(
             ISchoolInformationStorageAdapter schoolInformationStorageAdapter)
         {
             this.schoolInformationStorageAdapter = schoolInformationStorageAdapter;
         }
 
         /// <inheritdoc />
-        public async Task<Rates> GetRatesAsync(
+        public async Task<LearningProviderRates> GetLearningProviderRatesAsync(
             int year,
-            string entityName,
-            string identifier,
+            long urn,
             CancellationToken cancellationToken)
         {
-            Rates toReturn = null;
+            LearningProviderRates toReturn = null;
 
-            if (entityName == nameof(LearningProvider))
-            {
-                long urn;
-                if (!long.TryParse(identifier, out urn))
-                {
-                    throw new InvalidIdentifierException(
-                        nameof(urn),
-                        identifier,
-                        typeof(long));
-                }
+            LocalDomainModels.SchoolInformation schoolInformation =
+                await this.schoolInformationStorageAdapter.GetSchoolInformationAsync(
+                    year,
+                    urn,
+                    cancellationToken)
+                    .ConfigureAwait(false);
 
-                LocalDomainModels.SchoolInformation schoolInformation =
-                    await this.schoolInformationStorageAdapter.GetSchoolInformationAsync(
-                        year,
-                        urn,
-                        cancellationToken)
-                        .ConfigureAwait(false);
-
-                toReturn = Map(schoolInformation);
-            }
-            else
-            {
-                throw new EntityNotImplementedException(entityName);
-            }
+            toReturn = Map(schoolInformation);
 
             return toReturn;
         }
 
-        private static Rates Map(
+        private static LearningProviderRates Map(
             LocalDomainModels.SchoolInformation schoolInformation)
         {
-            Rates toReturn = null;
+            LearningProviderRates toReturn = null;
 
             BaselineFunding baselineFunding =
                 Map(schoolInformation.BaselineFunding);
@@ -84,7 +66,7 @@
                     Map(schoolInformation.IllustrativeFunding);
             }
 
-            toReturn = new Rates()
+            toReturn = new LearningProviderRates()
             {
                 BaselineFunding = baselineFunding,
                 IllustrativeFunding = illustrativeFunding,

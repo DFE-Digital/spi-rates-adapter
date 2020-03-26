@@ -16,36 +16,9 @@
         /// Initialises a new instance of the
         /// <see cref="RatesNotFoundException" /> class.
         /// </summary>
-        /// <param name="identifierName">
-        /// The name of the identifier used.
-        /// </param>
-        /// <param name="identifierValue">
-        /// The value of the identifier used.
-        /// </param>
-        public RatesNotFoundException(
-            string identifierName,
-            object identifierValue)
+        public RatesNotFoundException()
         {
-            this.IdentifierName = identifierName;
-            this.IdentifierValue = identifierValue;
-        }
-
-        /// <summary>
-        /// Gets the name of the identifier used.
-        /// </summary>
-        public string IdentifierName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the value of the identifier used.
-        /// </summary>
-        public object IdentifierValue
-        {
-            get;
-            private set;
+            // Nothing.
         }
     }
 }

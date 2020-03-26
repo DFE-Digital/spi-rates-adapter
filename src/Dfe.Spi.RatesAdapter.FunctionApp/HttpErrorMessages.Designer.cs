@@ -61,7 +61,7 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Rate identifier. The identifier of the Rate must follow the pattern: &quot;&lt;Year&gt;-&lt;Entity Name&gt;-&lt;Entity Identifier&gt;&quot;. For example, &quot;2019-LearningProvider-123456&quot;..
+        ///   Looks up a localized string similar to Invalid learning provider rates identifier. The identifier of the learning provider rates must follow the pattern: &quot;&lt;Year&gt;-&lt;Urn&gt;&quot;. For example, &quot;2019-123456&quot;..
         /// </summary>
         internal static string _1 {
             get {
@@ -79,7 +79,7 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Entity Name &quot;{0}&quot;- getting rates via this entity it is not yet supported..
+        ///   Looks up a localized string similar to Could not find learning provider rates for Year {0}, Urn {1}..
         /// </summary>
         internal static string _3 {
             get {
@@ -88,7 +88,7 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Entity Identifier &quot;{0}&quot; - the {1} must be a {2}..
+        ///   Looks up a localized string similar to Invalid Urn &quot;{0}&quot; - the Urn must be a valid long..
         /// </summary>
         internal static string _4 {
             get {
@@ -97,11 +97,29 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find Rate with {0} &quot;{1}&quot; for year {2}..
+        ///   Looks up a localized string similar to Invalid management group rates identifier. The identifier of the management group rates must follow the pattern: &quot;&lt;Year&gt;-&lt;LA Number&gt;&quot;. For example, &quot;2020-855&quot;..
         /// </summary>
         internal static string _5 {
             get {
                 return ResourceManager.GetString("_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find management group rates for Year {0}, LA Number {1}..
+        /// </summary>
+        internal static string _6 {
+            get {
+                return ResourceManager.GetString("_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid LA Number &quot;{0}&quot; - the LA Number must be a valid short..
+        /// </summary>
+        internal static string _7 {
+            get {
+                return ResourceManager.GetString("_7", resourceCulture);
             }
         }
     }

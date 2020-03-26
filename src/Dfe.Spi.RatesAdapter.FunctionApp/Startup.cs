@@ -67,7 +67,8 @@
         private static void AddAdapters(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddScoped<ISchoolInformationStorageAdapter, SchoolInformationStorageAdapter>();
+                .AddScoped<ISchoolInformationStorageAdapter, SchoolInformationStorageAdapter>()
+                .AddScoped<ILocalAuthorityInformationStorageAdapter, LocalAuthorityInformationStorageAdapter>();
         }
 
         private static void AddLogging(IServiceCollection serviceCollection)
@@ -80,14 +81,16 @@
         private static void AddManagers(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddScoped<IRatesManager, RatesManager>();
+                .AddScoped<ILearningProviderRatesManager, LearningProviderRatesManager>()
+                .AddScoped<IManagementGroupRatesManager, ManagementGroupRatesManager>();
         }
 
         private static void AddSettingsProviders(
             IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddScoped<ISchoolInformationStorageAdapterSettingsProvider, SchoolInformationStorageAdapterSettingsProvider>();
+                .AddScoped<ISchoolInformationStorageAdapterSettingsProvider, SchoolInformationStorageAdapterSettingsProvider>()
+                .AddScoped<ILocalAuthorityInformationStorageAdapterSettingsProvider, LocalAuthorityInformationStorageAdapterSettingsProvider>();
         }
 
         private static ILogger CreateILogger(IServiceProvider serviceProvider)

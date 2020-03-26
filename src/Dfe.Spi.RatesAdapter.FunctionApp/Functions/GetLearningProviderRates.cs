@@ -18,18 +18,18 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Entry class for the <c>get-rates</c> function.
+    /// Entry class for the <c>get-learning-provider-rates</c> function.
     /// </summary>
-    public class GetRates
+    public class GetLearningProviderRates
     {
         private readonly ILoggerWrapper loggerWrapper;
         private readonly IHttpErrorBodyResultProvider httpErrorBodyResultProvider;
         private readonly IHttpSpiExecutionContextManager httpSpiExecutionContextManager;
-        private readonly IRatesManager ratesManager;
+        private readonly ILearningProviderRatesManager learningProviderRatesManager;
 
         /// <summary>
         /// Initialises a new instance of the
-        /// <see cref="GetRates" /> class.
+        /// <see cref="GetLearningProviderRates" /> class.
         /// </summary>
         /// <param name="loggerWrapper">
         /// An instance of type <see cref="ILoggerWrapper" />.
@@ -40,29 +40,29 @@
         /// <param name="httpSpiExecutionContextManager">
         /// An instance of type <see cref="IHttpSpiExecutionContextManager" />.
         /// </param>
-        /// <param name="ratesManager">
-        /// An instance of type <see cref="IRatesManager" />.
+        /// <param name="learningProviderRatesManager">
+        /// An instance of type <see cref="ILearningProviderRatesManager" />.
         /// </param>
-        public GetRates(
+        public GetLearningProviderRates(
             ILoggerWrapper loggerWrapper,
             IHttpErrorBodyResultProvider httpErrorBodyResultProvider,
             IHttpSpiExecutionContextManager httpSpiExecutionContextManager,
-            IRatesManager ratesManager)
+            ILearningProviderRatesManager learningProviderRatesManager)
         {
             this.loggerWrapper = loggerWrapper;
             this.httpErrorBodyResultProvider = httpErrorBodyResultProvider;
             this.httpSpiExecutionContextManager = httpSpiExecutionContextManager;
-            this.ratesManager = ratesManager;
+            this.learningProviderRatesManager = learningProviderRatesManager;
         }
 
         /// <summary>
-        /// Entry method for the <c>get-rates</c> function.
+        /// Entry method for the <c>get-learning-provider-rates</c> function.
         /// </summary>
         /// <param name="httpRequest">
         /// An instance of <see cref="HttpContext" />.
         /// </param>
         /// <param name="id">
-        /// The id of the <see cref="Rates" /> instance.
+        /// The id of the <see cref="LearningProvider" /> instance.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
@@ -70,9 +70,9 @@
         /// <returns>
         /// An instance of type <see cref="IActionResult" />.
         /// </returns>
-        [FunctionName("get-rates")]
+        [FunctionName("get-learning-provider-rates")]
         public async Task<IActionResult> RunAsync(
-            [HttpTrigger(AuthorizationLevel.Function, "GET", Route = "rates/{id}")]
+            [HttpTrigger(AuthorizationLevel.Function, "GET", Route = "learning-provider-rates/{id}")]
             HttpRequest httpRequest,
             string id,
             CancellationToken cancellationToken)
@@ -100,7 +100,7 @@
                 new char[] { '-' },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            if (idParts.Length != 3)
+            if (idParts.Length != 2)
             {
                 toReturn = this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
                     HttpStatusCode.BadRequest,
@@ -110,8 +110,7 @@
             if (toReturn == null)
             {
                 string yearStr = idParts[0];
-                string entityName = idParts[1];
-                string identifier = idParts[2];
+                string urnStr = idParts[1];
 
                 int year = default(int);
                 if (!int.TryParse(yearStr, out year))
@@ -123,12 +122,21 @@
                             yearStr);
                 }
 
+                long urn = default(long);
+                if (!long.TryParse(urnStr, out urn))
+                {
+                    toReturn =
+                        this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
+                            HttpStatusCode.BadRequest,
+                            4,
+                            urnStr);
+                }
+
                 if (toReturn == null)
                 {
                     toReturn = await this.ExecuteValidatedRequestAsync(
                         year,
-                        entityName,
-                        identifier,
+                        urn,
                         cancellationToken)
                         .ConfigureAwait(false);
                 }
@@ -156,89 +164,47 @@
 
         private async Task<IActionResult> ExecuteValidatedRequestAsync(
             int year,
-            string entityName,
-            string identifier,
+            long urn,
             CancellationToken cancellationToken)
         {
             IActionResult toReturn = null;
 
             try
             {
-                Rates rates = await this.ratesManager.GetRatesAsync(
-                    year,
-                    entityName,
-                    identifier,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                LearningProviderRates learningProviderRates =
+                    await this.learningProviderRatesManager.GetLearningProviderRatesAsync(
+                        year,
+                        urn,
+                        cancellationToken)
+                        .ConfigureAwait(false);
 
-                rates.Name =
-                    $"Rates for year {year}, for {entityName} ({identifier})";
+                learningProviderRates.Name =
+                    $"Learning Provider Rates for year {year} " +
+                    $"({nameof(urn)}: {urn})";
 
                 JsonSerializerSettings jsonSerializerSettings =
                     JsonConvert.DefaultSettings();
 
                 if (jsonSerializerSettings == null)
                 {
-                    toReturn = new JsonResult(rates);
+                    toReturn = new JsonResult(learningProviderRates);
                 }
                 else
                 {
-                    toReturn = new JsonResult(rates, jsonSerializerSettings);
+                    toReturn = new JsonResult(
+                        learningProviderRates,
+                        jsonSerializerSettings);
                 }
             }
-            catch (EntityNotImplementedException entityNotImplementedException)
-            {
-                toReturn =
-                    this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
-                        HttpStatusCode.NotImplemented,
-                        3,
-                        entityNotImplementedException.EntityName);
-            }
-            catch (InvalidIdentifierException invalidIdentifierException)
-            {
-                toReturn =
-                    this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
-                        HttpStatusCode.BadRequest,
-                        4,
-                        invalidIdentifierException.Value,
-                        invalidIdentifierException.Name,
-                        invalidIdentifierException.ExpectedTypeName);
-            }
-            catch (RatesNotFoundException ratesNotFoundException)
+            catch (RatesNotFoundException)
             {
                 toReturn =
                     this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
                         HttpStatusCode.NotFound,
-                        5,
-                        ratesNotFoundException.IdentifierName,
-                        ratesNotFoundException.IdentifierValue.ToString(),
-                        year.ToString(CultureInfo.InvariantCulture));
+                        3,
+                        year.ToString(CultureInfo.InvariantCulture),
+                        urn.ToString(CultureInfo.InvariantCulture));
             }
-
-            return toReturn;
-        }
-
-        private IActionResult GetErrorBody(
-            HttpStatusCode httpStatusCode,
-            int errorId,
-            Exception exception)
-        {
-            IActionResult toReturn = null;
-
-            string message = exception.Message;
-
-            Type exceptionType = exception.GetType();
-
-            this.loggerWrapper.Error(
-                $"An exception of type {exceptionType.Name} was thrown: " +
-                $"{message}",
-                exception);
-
-            toReturn =
-                this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
-                    httpStatusCode,
-                    errorId,
-                    message);
 
             return toReturn;
         }

@@ -80,7 +80,7 @@
         private static void AddManagers(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddScoped<IRatesManager, RatesManager>();
+                .AddScoped<ILearningProviderRatesManager, LearningProviderRatesManager>();
         }
 
         private static void AddSettingsProviders(

@@ -126,12 +126,12 @@
         }
 
         /// <inheritdoc />
-        public async Task<Domain.Models.SchoolInformation> GetSchoolInformationAsync(
+        public async Task<DomainModels.SchoolInformation> GetSchoolInformationAsync(
             int year,
             long urn,
             CancellationToken cancellationToken)
         {
-            Domain.Models.SchoolInformation toReturn = null;
+            DomainModels.SchoolInformation toReturn = null;
 
             string identifier =
                 $"{year.ToString(CultureInfo.InvariantCulture)}-{urn.ToString(CultureInfo.InvariantCulture)}";
@@ -154,7 +154,7 @@
 
             if (schoolRatesGroupsBase.Count == 0)
             {
-                throw new RatesNotFoundException(nameof(urn), urn);
+                throw new RatesNotFoundException();
             }
 
             toReturn = this.Map(schoolRatesGroupsBase);
@@ -181,7 +181,7 @@
             return toReturn;
         }
 
-        private Domain.Models.SchoolInformation Map(
+        private DomainModels.SchoolInformation Map(
             IList<SchoolRatesGroupsBase> schoolRatesGroupsBases)
         {
             DomainModels.SchoolInformation toReturn = null;

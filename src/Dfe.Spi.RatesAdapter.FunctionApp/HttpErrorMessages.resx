@@ -118,18 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="_1" xml:space="preserve">
-    <value>Invalid Rate identifier. The identifier of the Rate must follow the pattern: "&lt;Year&gt;-&lt;Entity Name&gt;-&lt;Entity Identifier&gt;". For example, "2019-LearningProvider-123456".</value>
+    <value>Invalid learning provider rates identifier. The identifier of the learning provider rates must follow the pattern: "&lt;Year&gt;-&lt;Urn&gt;". For example, "2019-123456".</value>
   </data>
   <data name="_2" xml:space="preserve">
     <value>Invalid Year "{0}" - the Year must be a valid integer.</value>
   </data>
   <data name="_3" xml:space="preserve">
-    <value>Invalid Entity Name "{0}"- getting rates via this entity it is not yet supported.</value>
+    <value>Could not find learning provider rates for year {0}, urn {1}.</value>
   </data>
   <data name="_4" xml:space="preserve">
-    <value>Invalid Entity Identifier "{0}" - the {1} must be a {2}.</value>
-  </data>
-  <data name="_5" xml:space="preserve">
-    <value>Could not find Rate with {0} "{1}" for year {2}.</value>
+    <value>Invalid Urn "{0}" - the Urn must be a valid long.</value>
   </data>
 </root>

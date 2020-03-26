@@ -106,6 +106,15 @@
             }
         }
 
+        /// <inheritdoc />
+        public Task<DomainModels.LocalAuthorityInformation> GetLocalAuthorityInformationAsync(
+            int year,
+            short laNumber,
+            CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         private TLocalAuthorityRatesGroupsBase Map<TModelsBase, TLocalAuthorityRatesGroupsBase>(
             int year,
             long laNumber,

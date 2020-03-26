@@ -5,7 +5,7 @@
     /// <summary>
     /// Implements <see cref="IStorageAdapterSettingsProvider" />.
     /// </summary>
-    public abstract class StorageAdapterSettingsProvider
+    public class StorageAdapterSettingsProvider
         : IStorageAdapterSettingsProvider
     {
         /// <summary>

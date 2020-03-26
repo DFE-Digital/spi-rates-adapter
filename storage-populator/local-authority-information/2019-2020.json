@@ -1,0 +1,40 @@
+{
+  "year": 2019,
+  "columnMappingConfigurations": [
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.LocalAuthorityInformation",
+      "columnMappings": {
+        "LaNumber": 1,
+        "Region": 0,
+        "LaName": 2
+      }
+    },
+    {
+      "modelType": "Dfe.Spi.RatesAdapter.Domain.Models.Rates.ProvisionalFunding",
+      "columnMappings": {
+        "ActualPrimaryUnitOfFunding": 3,
+        "ActualSecondaryUnitOfFunding": 4,
+        "PrimaryPupilNumbers": 5,
+        "SecondaryPupilNumbers": 6,
+        "ActualFundingThroughPremesisMobilityFactors": 7,
+        "IllustrativeGrowthFunding": 8,
+        "NffSchoolsBlockFunding": 9,
+        "ActualHighNeedsNffAllocations": 10,
+        "ActualAcaWeightedBasicEntitlementFactorUnitRate": 11,
+        "NumberOfPupilsInSpecialSchoolsAcadamiesIndependentSettings": 12,
+        "ActualImportExportAdjustmentUnitRate": 13,
+        "NetNumberOfImportedPupils": 14,
+        "HospitalEducationSpending": 15,
+        "NffHighNeedsBlockFunding": 16,
+        "ActualCssbUnitOfFundingForOngoingFunctions": 17,
+        "PupilNumbersSchoolsBlockDsgDuplicatesApportioned": 18,
+        "ActualFundingForHistoricCommitments": 19,
+        "NffCssbFunding": 20,
+        "NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks": 21
+      }
+    }
+  ],
+  "firstRow": 14,
+  "lastRow": 163,
+  "sheetName": "2019-20 allocations"
+}

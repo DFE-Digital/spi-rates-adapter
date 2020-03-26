@@ -4,7 +4,7 @@
     using Dfe.Spi.RatesAdapter.Domain.Models.Rates;
 
     /// <summary>
-    /// Represents school information.
+    /// Implements <see cref="ISchoolInformation" />.
     /// </summary>
     public class SchoolInformation : ModelsBase, ISchoolInformation
     {

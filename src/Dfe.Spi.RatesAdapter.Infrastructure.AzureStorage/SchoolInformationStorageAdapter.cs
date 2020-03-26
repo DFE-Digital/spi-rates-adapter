@@ -17,12 +17,13 @@
     using Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.Models.SchoolRatesGroups;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Table;
+    using DomainModels = Dfe.Spi.RatesAdapter.Domain.Models;
 
     /// <summary>
     /// Implements <see cref="ISchoolInformationStorageAdapter" />.
     /// </summary>
     public class SchoolInformationStorageAdapter
-        : StorageAdapterBase<Domain.Models.SchoolInformation>, ISchoolInformationStorageAdapter
+        : StorageAdapterBase<DomainModels.SchoolInformation>, ISchoolInformationStorageAdapter
     {
         private readonly ILoggerWrapper loggerWrapper;
         private readonly IMapper mapper;
@@ -50,11 +51,11 @@
             MapperConfiguration mapperConfiguration = new MapperConfiguration(
                 x =>
                 {
-                    x.CreateMap<SchoolInformation, Domain.Models.SchoolInformation>().ReverseMap();
+                    x.CreateMap<SchoolInformation, DomainModels.SchoolInformation>().ReverseMap();
 
-                    x.CreateMap<BaselineFunding, Domain.Models.Rates.BaselineFunding>().ReverseMap();
-                    x.CreateMap<NotionalFunding, Domain.Models.Rates.NotionalFunding>().ReverseMap();
-                    x.CreateMap<IllustrativeFunding, Domain.Models.Rates.IllustrativeFunding>().ReverseMap();
+                    x.CreateMap<BaselineFunding, DomainModels.Rates.BaselineFunding>().ReverseMap();
+                    x.CreateMap<NotionalFunding, DomainModels.Rates.NotionalFunding>().ReverseMap();
+                    x.CreateMap<IllustrativeFunding, DomainModels.Rates.IllustrativeFunding>().ReverseMap();
                 });
 
             this.mapper = mapperConfiguration.CreateMapper();
@@ -63,7 +64,7 @@
         /// <inheritdoc />
         public override async Task CreateAsync(
             int year,
-            Domain.Models.SchoolInformation schoolInformation,
+            DomainModels.SchoolInformation schoolInformation,
             CancellationToken cancellationToken)
         {
             if (schoolInformation == null)
@@ -82,16 +83,16 @@
 
             List<ModelsBase> modelsBases = new List<ModelsBase>
             {
-                this.Map<Domain.Models.SchoolInformation, SchoolInformation>(
+                this.Map<DomainModels.SchoolInformation, SchoolInformation>(
                     year,
                     urn,
                     schoolInformation),
 
-                this.Map<Domain.Models.Rates.BaselineFunding, BaselineFunding>(
+                this.Map<DomainModels.Rates.BaselineFunding, BaselineFunding>(
                     year,
                     urn,
                     schoolInformation.BaselineFunding),
-                this.Map<Domain.Models.Rates.NotionalFunding, NotionalFunding>(
+                this.Map<DomainModels.Rates.NotionalFunding, NotionalFunding>(
                     year,
                     urn,
                     schoolInformation.NotionalFunding),
@@ -100,7 +101,7 @@
             if (schoolInformation.IllustrativeFunding != null)
             {
                 IllustrativeFunding illustrativeFunding =
-                    this.Map<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
+                    this.Map<DomainModels.Rates.IllustrativeFunding, IllustrativeFunding>(
                         year,
                         urn,
                         schoolInformation.IllustrativeFunding);
@@ -166,7 +167,7 @@
             long urn,
             TModelsBase modelsBase)
             where TSchoolRatesGroupsBase : SchoolRatesGroupsBase
-            where TModelsBase : Domain.Models.ModelsBase
+            where TModelsBase : DomainModels.ModelsBase
         {
             TSchoolRatesGroupsBase toReturn =
                 this.mapper.Map<TSchoolRatesGroupsBase>(modelsBase);
@@ -183,22 +184,22 @@
         private Domain.Models.SchoolInformation Map(
             IList<SchoolRatesGroupsBase> schoolRatesGroupsBases)
         {
-            Domain.Models.SchoolInformation toReturn = null;
+            DomainModels.SchoolInformation toReturn = null;
 
             toReturn =
-                this.ExtractAndMap<Domain.Models.SchoolInformation, SchoolInformation>(
+                this.ExtractAndMap<DomainModels.SchoolInformation, SchoolInformation>(
                     schoolRatesGroupsBases);
 
             toReturn.BaselineFunding =
-                this.ExtractAndMap<Domain.Models.Rates.BaselineFunding, BaselineFunding>(
+                this.ExtractAndMap<DomainModels.Rates.BaselineFunding, BaselineFunding>(
                     schoolRatesGroupsBases);
 
             toReturn.IllustrativeFunding =
-                this.ExtractAndMap<Domain.Models.Rates.IllustrativeFunding, IllustrativeFunding>(
+                this.ExtractAndMap<DomainModels.Rates.IllustrativeFunding, IllustrativeFunding>(
                     schoolRatesGroupsBases);
 
             toReturn.NotionalFunding =
-                this.ExtractAndMap<Domain.Models.Rates.NotionalFunding, NotionalFunding>(
+                this.ExtractAndMap<DomainModels.Rates.NotionalFunding, NotionalFunding>(
                     schoolRatesGroupsBases);
 
             return toReturn;
@@ -207,7 +208,7 @@
         private TModelsBase ExtractAndMap<TModelsBase, TSchoolRatesGroupsBase>(
             IList<SchoolRatesGroupsBase> schoolRatesGroupsBases)
             where TSchoolRatesGroupsBase : SchoolRatesGroupsBase
-            where TModelsBase : Domain.Models.ModelsBase
+            where TModelsBase : DomainModels.ModelsBase
         {
             TModelsBase toReturn = null;
 

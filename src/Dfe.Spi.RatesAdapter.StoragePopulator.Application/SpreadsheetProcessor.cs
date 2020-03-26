@@ -23,6 +23,7 @@
         private readonly IConfigurationFileReader configurationFileReader;
         private readonly ILoggerWrapper loggerWrapper;
         private readonly ISchoolInformationStorageAdapter schoolInformationStorageAdapter;
+        private readonly ILocalAuthorityInformationStorageAdapter localAuthorityInformationStorageAdapter;
         private readonly ISpreadsheetReader spreadsheetReader;
 
         /// <summary>
@@ -39,6 +40,10 @@
         /// An instance of type
         /// <see cref="ISchoolInformationStorageAdapter" />.
         /// </param>
+        /// <param name="localAuthorityInformationStorageAdapter">
+        /// An instance of type
+        /// <see cref="ILocalAuthorityInformationStorageAdapter" />.
+        /// </param>
         /// <param name="spreadsheetReader">
         /// An instance of type <see cref="ISpreadsheetReader" />.
         /// </param>
@@ -46,13 +51,18 @@
             IConfigurationFileReader configurationFileReader,
             ILoggerWrapper loggerWrapper,
             ISchoolInformationStorageAdapter schoolInformationStorageAdapter,
+            ILocalAuthorityInformationStorageAdapter localAuthorityInformationStorageAdapter,
             ISpreadsheetReader spreadsheetReader)
         {
             this.configurationFileReader = configurationFileReader;
             this.loggerWrapper = loggerWrapper;
             this.schoolInformationStorageAdapter = schoolInformationStorageAdapter;
+            this.localAuthorityInformationStorageAdapter = localAuthorityInformationStorageAdapter;
             this.spreadsheetReader = spreadsheetReader;
         }
+
+        /// <inheritdoc />
+        public event InsertionProgressReportedHandler InsertionProgressReported;
 
         /// <inheritdoc />
         public async Task<ProcessResponse> ProcessAsync(
@@ -99,6 +109,7 @@
 
             DomainModels.ModelsBase modelsBase = null;
             DomainModels.SchoolInformation schoolInformation = null;
+            DomainModels.LocalAuthorityInformation localAuthorityInformation = null;
             for (int i = 0; i < length; i++)
             {
                 modelsBase = modelsBaseArray[i];
@@ -115,21 +126,37 @@
                             schoolInformation,
                             cancellationToken)
                             .ConfigureAwait(false);
-
-                        decimal percentage = (decimal)i / length;
-
-                        percentage *= 100;
-
-                        Console.Title =
-                            $"Progress: {i}/{length} " +
-                            $"({percentage.ToString("#.##", CultureInfo.InvariantCulture)}%)...";
                     }
                     else
                     {
                         this.loggerWrapper.Warning(
                             $"A {nameof(DomainModels.SchoolInformation)} " +
                             $"instance could not be inserted, as there " +
-                            $"wasn't a URN.");
+                            $"wasn't a " +
+                            $"{nameof(DomainModels.SchoolInformation.Urn)}.");
+                    }
+                }
+                else if (modelsBase is DomainModels.LocalAuthorityInformation)
+                {
+                    localAuthorityInformation =
+                        modelsBase as DomainModels.LocalAuthorityInformation;
+
+                    if (localAuthorityInformation.LaNumber.HasValue)
+                    {
+                        await this.localAuthorityInformationStorageAdapter.CreateAsync(
+                            year,
+                            localAuthorityInformation,
+                            cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        this.loggerWrapper.Warning(
+                            $"A " +
+                            $"{nameof(DomainModels.LocalAuthorityInformation)} " +
+                            $"instance could not be inserted, as there " +
+                            $"wasn't an " +
+                            $"{nameof(DomainModels.LocalAuthorityInformation.LaNumber)}.");
                     }
                 }
                 else
@@ -138,9 +165,23 @@
                         "Storage not configured for this type. Please " +
                         "implement.");
                 }
+
+                this.ReportInsertionProgress(i, length);
             }
 
             return toReturn;
+        }
+
+        private void ReportInsertionProgress(int current, int total)
+        {
+            if (this.InsertionProgressReported != null)
+            {
+                decimal percentage = (decimal)(current + 1) / total;
+
+                percentage *= 100;
+
+                this.InsertionProgressReported(percentage);
+            }
         }
     }
 }

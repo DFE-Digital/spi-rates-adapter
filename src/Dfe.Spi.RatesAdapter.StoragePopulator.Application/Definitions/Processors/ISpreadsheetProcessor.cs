@@ -10,6 +10,11 @@
     public interface ISpreadsheetProcessor
     {
         /// <summary>
+        /// Raised when the processor wishes to report progress.
+        /// </summary>
+        event InsertionProgressReportedHandler InsertionProgressReported;
+
+        /// <summary>
         /// Parses a spreadsheet, taking the contents and a configuration file,
         /// and then inserts the newly created entities in the specified Azure
         /// storage table.

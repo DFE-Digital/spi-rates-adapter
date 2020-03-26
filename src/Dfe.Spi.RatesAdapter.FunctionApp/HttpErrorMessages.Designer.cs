@@ -79,7 +79,7 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find learning provider rates for year {0}, urn {1}..
+        ///   Looks up a localized string similar to Could not find learning provider rates for Year {0}, Urn {1}..
         /// </summary>
         internal static string _3 {
             get {
@@ -93,6 +93,33 @@ namespace Dfe.Spi.RatesAdapter.FunctionApp {
         internal static string _4 {
             get {
                 return ResourceManager.GetString("_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid management group rates identifier. The identifier of the management group rates must follow the pattern: &quot;&lt;Year&gt;-&lt;LA Number&gt;&quot;. For example, &quot;2020-855&quot;..
+        /// </summary>
+        internal static string _5 {
+            get {
+                return ResourceManager.GetString("_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find management group rates for Year {0}, LA Number {1}..
+        /// </summary>
+        internal static string _6 {
+            get {
+                return ResourceManager.GetString("_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid LA Number &quot;{0}&quot; - the LA Number must be a valid short..
+        /// </summary>
+        internal static string _7 {
+            get {
+                return ResourceManager.GetString("_7", resourceCulture);
             }
         }
     }

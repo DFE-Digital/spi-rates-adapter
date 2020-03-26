@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using Dfe.Spi.Common.Http.Server.Definitions;
     using Dfe.Spi.Common.Logging.Definitions;
-    using Dfe.Spi.Common.Models;
     using Dfe.Spi.Models.Entities;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Exceptions;
@@ -18,18 +17,18 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Entry class for the <c>get-learning-provider-rates</c> function.
+    /// Entry class for the <c>get-management-group-rates</c> function.
     /// </summary>
-    public class GetLearningProviderRates : FunctionsBase
+    public class GetManagementGroupRates : FunctionsBase
     {
         private readonly ILoggerWrapper loggerWrapper;
         private readonly IHttpErrorBodyResultProvider httpErrorBodyResultProvider;
         private readonly IHttpSpiExecutionContextManager httpSpiExecutionContextManager;
-        private readonly ILearningProviderRatesManager learningProviderRatesManager;
+        private readonly IManagementGroupRatesManager managementGroupRatesManager;
 
         /// <summary>
         /// Initialises a new instance of the
-        /// <see cref="GetLearningProviderRates" /> class.
+        /// <see cref="GetManagementGroupRates" /> class.
         /// </summary>
         /// <param name="loggerWrapper">
         /// An instance of type <see cref="ILoggerWrapper" />.
@@ -40,30 +39,30 @@
         /// <param name="httpSpiExecutionContextManager">
         /// An instance of type <see cref="IHttpSpiExecutionContextManager" />.
         /// </param>
-        /// <param name="learningProviderRatesManager">
-        /// An instance of type <see cref="ILearningProviderRatesManager" />.
+        /// <param name="managementGroupRatesManager">
+        /// An instance of type <see cref="IManagementGroupRatesManager" />.
         /// </param>
-        public GetLearningProviderRates(
+        public GetManagementGroupRates(
             ILoggerWrapper loggerWrapper,
             IHttpErrorBodyResultProvider httpErrorBodyResultProvider,
             IHttpSpiExecutionContextManager httpSpiExecutionContextManager,
-            ILearningProviderRatesManager learningProviderRatesManager)
+            IManagementGroupRatesManager managementGroupRatesManager)
             : base(loggerWrapper)
         {
             this.loggerWrapper = loggerWrapper;
             this.httpErrorBodyResultProvider = httpErrorBodyResultProvider;
             this.httpSpiExecutionContextManager = httpSpiExecutionContextManager;
-            this.learningProviderRatesManager = learningProviderRatesManager;
+            this.managementGroupRatesManager = managementGroupRatesManager;
         }
 
         /// <summary>
-        /// Entry method for the <c>get-learning-provider-rates</c> function.
+        /// Entry method for the <c>get-management-group-rates</c> function.
         /// </summary>
         /// <param name="httpRequest">
         /// An instance of <see cref="HttpContext" />.
         /// </param>
         /// <param name="id">
-        /// The id of the <see cref="LearningProviderRates" /> instance.
+        /// The id of the <see cref="ManagementGroupRates" /> instance.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
@@ -71,9 +70,9 @@
         /// <returns>
         /// An instance of type <see cref="IActionResult" />.
         /// </returns>
-        [FunctionName("get-learning-provider-rates")]
+        [FunctionName("get-management-group-rates")]
         public async Task<IActionResult> RunAsync(
-            [HttpTrigger(AuthorizationLevel.Function, "GET", Route = "learning-provider-rates/{id}")]
+            [HttpTrigger(AuthorizationLevel.Function, "GET", Route = "management-group-rates/{id}")]
             HttpRequest httpRequest,
             string id,
             CancellationToken cancellationToken)
@@ -105,13 +104,13 @@
             {
                 toReturn = this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
                     HttpStatusCode.BadRequest,
-                    1);
+                    5);
             }
 
             if (toReturn == null)
             {
                 string yearStr = idParts[0];
-                string urnStr = idParts[1];
+                string laNumberStr = idParts[1];
 
                 int year = default(int);
                 if (!int.TryParse(yearStr, out year))
@@ -123,21 +122,21 @@
                             yearStr);
                 }
 
-                long urn = default(long);
-                if (!long.TryParse(urnStr, out urn))
+                short laNumber = default(short);
+                if (!short.TryParse(laNumberStr, out laNumber))
                 {
                     toReturn =
                         this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
                             HttpStatusCode.BadRequest,
-                            4,
-                            urnStr);
+                            7,
+                            laNumberStr);
                 }
 
                 if (toReturn == null)
                 {
                     toReturn = await this.ExecuteValidatedRequestAsync(
                         year,
-                        urn,
+                        laNumber,
                         cancellationToken)
                         .ConfigureAwait(false);
                 }
@@ -150,35 +149,35 @@
 
         private async Task<IActionResult> ExecuteValidatedRequestAsync(
             int year,
-            long urn,
+            short laNumber,
             CancellationToken cancellationToken)
         {
             IActionResult toReturn = null;
 
             try
             {
-                LearningProviderRates learningProviderRates =
-                    await this.learningProviderRatesManager.GetLearningProviderRatesAsync(
+                ManagementGroupRates managementGroupRates =
+                    await this.managementGroupRatesManager.GetManagementGroupRatesAsync(
                         year,
-                        urn,
+                        laNumber,
                         cancellationToken)
                         .ConfigureAwait(false);
 
-                learningProviderRates.Name =
-                    $"Learning Provider Rates for year {year} " +
-                    $"({nameof(urn)}: {urn})";
+                managementGroupRates.Name =
+                    $"Management Group Rates for year {year} " +
+                    $"({nameof(laNumber)}: {laNumber})";
 
                 JsonSerializerSettings jsonSerializerSettings =
                     JsonConvert.DefaultSettings();
 
                 if (jsonSerializerSettings == null)
                 {
-                    toReturn = new JsonResult(learningProviderRates);
+                    toReturn = new JsonResult(managementGroupRates);
                 }
                 else
                 {
                     toReturn = new JsonResult(
-                        learningProviderRates,
+                        managementGroupRates,
                         jsonSerializerSettings);
                 }
             }
@@ -187,9 +186,9 @@
                 toReturn =
                     this.httpErrorBodyResultProvider.GetHttpErrorBodyResult(
                         HttpStatusCode.NotFound,
-                        3,
+                        6,
                         year.ToString(CultureInfo.InvariantCulture),
-                        urn.ToString(CultureInfo.InvariantCulture));
+                        laNumber.ToString(CultureInfo.InvariantCulture));
             }
 
             return toReturn;

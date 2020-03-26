@@ -28,12 +28,10 @@
         "ImportExportAdjustmentsIncludingAdjustmentsToNewAndGrowingSpecialFreeSchools": 16,
         "HospitalEducationFundingWithEightPercentUplift": 17,
         "NffHighNeedsBlockFunding": 18,
-
         "ActualCssbUnitOfFundingForOngoingFunctions": 19,
         "PupilNumbersSchoolsBlockDsgDuplicatesApportioned": 20,
         "ActualFundingForHistoricCommitments": 21,
         "NffCssbFunding": 22,
-
         "NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks": 23
       }
     }

@@ -264,5 +264,80 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets the <c>ActualCssbUnitOfFunding</c> value.
+        /// Spreadsheets: 2018.
+        /// </summary>
+        double? ActualCssbUnitOfFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>ActualCssbUnitOfFundingForOngoingFunctions</c>
+        /// value.
+        /// Spreadsheets: 2019, 2020.
+        /// </summary>
+        double? ActualCssbUnitOfFundingForOngoingFunctions
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>PupilNumbers</c> value.
+        /// Spreadsheets: 2018.
+        /// </summary>
+        int? PupilNumbers
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>PupilNumbersSchoolsBlockDsgDuplicatesApportioned</c> value.
+        /// Spreadsheets: 2019, 2020.
+        /// Note: Double on the 2019 spreadsheet.
+        /// </summary>
+        double? PupilNumbersSchoolsBlockDsgDuplicatesApportioned
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>ActualFundingForHistoricCommitments</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
+        /// </summary>
+        double? ActualFundingForHistoricCommitments
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the <c>NffCssbFunding</c> value.
+        /// Spreadsheets: 2018, 2019, 2020.
+        /// </summary>
+        double? NffCssbFunding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the
+        /// <c>NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks</c>
+        /// value.
+        /// Spreadsheets: 2018, 2019, 2020.
+        /// </summary>
+        double? NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks
+        {
+            get;
+            set;
+        }
     }
 }

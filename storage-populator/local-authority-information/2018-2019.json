@@ -23,7 +23,14 @@
         "NumberOfPupilsInSpecialSchoolsAcadamies": 11,
         "ActualImportExportAdjustmentUnitRate": 12,
         "NetNumberOfImportedPupils": 13,
-        "NffHighNeedsBlockFunding": 14
+        "NffHighNeedsBlockFunding": 14,
+
+        "ActualCssbUnitOfFunding": 15,
+        "PupilNumbers": 16,
+        "ActualFundingForHistoricCommitments": 17,
+        "NffCssbFunding": 18,
+
+        "NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks":  19
       }
     }
   ],

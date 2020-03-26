@@ -25,7 +25,14 @@
         "ActualImportExportAdjustmentUnitRate": 13,
         "NetNumberOfImportedPupils": 14,
         "HospitalEducationSpending": 15,
-        "NffHighNeedsBlockFunding": 16
+        "NffHighNeedsBlockFunding": 16,
+
+        "ActualCssbUnitOfFundingForOngoingFunctions": 17,
+        "PupilNumbersSchoolsBlockDsgDuplicatesApportioned": 18,
+        "ActualFundingForHistoricCommitments": 19,
+        "NffCssbFunding": 20,
+
+        "NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks": 21
       }
     }
   ],

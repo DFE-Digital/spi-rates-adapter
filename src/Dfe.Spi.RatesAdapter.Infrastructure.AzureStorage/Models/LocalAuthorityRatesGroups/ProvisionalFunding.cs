@@ -175,5 +175,54 @@
             get;
             set;
         }
+
+        /// <inheritdoc />
+        public double? ActualCssbUnitOfFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualCssbUnitOfFundingForOngoingFunctions
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public int? PupilNumbers
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? PupilNumbersSchoolsBlockDsgDuplicatesApportioned
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? ActualFundingForHistoricCommitments
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NffCssbFunding
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public double? NffAllocationsForSchoolsHighNeedsAndCentralSchoolServicesBlocks
+        {
+            get;
+            set;
+        }
     }
 }

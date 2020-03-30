@@ -7,8 +7,8 @@
     using System.Threading.Tasks;
     using Dfe.Spi.Common.Http.Server.Definitions;
     using Dfe.Spi.Common.Logging.Definitions;
-    using Dfe.Spi.Common.Models;
     using Dfe.Spi.Models.Entities;
+    using Dfe.Spi.Models.Extensions;
     using Dfe.Spi.RatesAdapter.Application.Definitions;
     using Dfe.Spi.RatesAdapter.Domain.Exceptions;
     using Microsoft.AspNetCore.Http;
@@ -135,9 +135,12 @@
 
                 if (toReturn == null)
                 {
+                    string fields = httpRequest.Query["fields"];
+
                     toReturn = await this.ExecuteValidatedRequestAsync(
                         year,
                         urn,
+                        fields,
                         cancellationToken)
                         .ConfigureAwait(false);
                 }
@@ -151,6 +154,7 @@
         private async Task<IActionResult> ExecuteValidatedRequestAsync(
             int year,
             long urn,
+            string fields,
             CancellationToken cancellationToken)
         {
             IActionResult toReturn = null;
@@ -167,6 +171,11 @@
                 learningProviderRates.Name =
                     $"Learning Provider Rates for year {year} " +
                     $"({nameof(urn)}: {urn})";
+
+                if (!string.IsNullOrEmpty(fields))
+                {
+                    learningProviderRates = learningProviderRates.Pick(fields);
+                }
 
                 JsonSerializerSettings jsonSerializerSettings =
                     JsonConvert.DefaultSettings();

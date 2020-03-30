@@ -8,8 +8,11 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <!-- Microsoft -->
+    <!-- Dfe.Spi.* -->
     <PackageReference Include="Dfe.Spi.Common.Http.Server" Version="1.0.17" />
+    <PackageReference Include="Dfe.Spi.Models.Extensions" Version="1.0.2" />
+
+    <!-- Microsoft -->
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
 

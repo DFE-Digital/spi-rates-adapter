@@ -21,6 +21,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.Storag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel", "Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel\Dfe.Spi.RatesAdapter.StoragePopulator.Infrastructure.Excel.csproj", "{297504EB-EBBD-412F-8E4F-74E5BEF34B5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{7B655E89-8D09-4104-8B15-A56E55A2E4B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C545454C-6C94-4DC7-9AE2-9ADFE2038AF5}"
+ProjectSection(SolutionItems) = preProject
+	..\pipelines\azure-pipelines.yml = ..\pipelines\azure-pipelines.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Release", "Release", "{8859F650-E357-441A-B4B1-FA2A58C57DBC}"
+ProjectSection(SolutionItems) = preProject
+	..\azure\template.json = ..\azure\template.json
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EAPIM", "EAPIM", "{4945E2AD-0199-44F4-8BC3-DBB5CCD54E8D}"
+ProjectSection(SolutionItems) = preProject
+	..\eapim\named-values.csv = ..\eapim\named-values.csv
+	..\eapim\oauth.xml = ..\eapim\oauth.xml
+	..\eapim\policy.xml = ..\eapim\policy.xml
+	..\eapim\swagger.json = ..\eapim\swagger.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +88,9 @@ Global
 		{72A0078A-6E93-4994-B88A-B51BE136A07F} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
 		{4A4325C1-3A8E-47AF-8208-EE87D364E609} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
 		{297504EB-EBBD-412F-8E4F-74E5BEF34B5B} = {CBFE5132-B457-4F56-BAEB-9FD8B3AFFC86}
+		{C545454C-6C94-4DC7-9AE2-9ADFE2038AF5} = {7B655E89-8D09-4104-8B15-A56E55A2E4B9}
+		{8859F650-E357-441A-B4B1-FA2A58C57DBC} = {7B655E89-8D09-4104-8B15-A56E55A2E4B9}
+		{4945E2AD-0199-44F4-8BC3-DBB5CCD54E8D} = {7B655E89-8D09-4104-8B15-A56E55A2E4B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C971D3B8-2B24-479C-AC76-88F515923554}

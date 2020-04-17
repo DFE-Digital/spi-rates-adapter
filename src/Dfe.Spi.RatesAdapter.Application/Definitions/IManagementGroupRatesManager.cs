@@ -24,7 +24,7 @@ namespace Dfe.Spi.RatesAdapter.Application.Definitions
         /// The LA number of the <see cref="ManagementGroupRates" /> instance.
         /// </param>
         /// <param name="fields">
-        /// Fields to select. Null to take all
+        /// Fields to select. Null to take all.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
@@ -39,13 +39,13 @@ namespace Dfe.Spi.RatesAdapter.Application.Definitions
             CancellationToken cancellationToken);
         
         /// <summary>
-        /// Get an array of <see cref="ManagementGroupRates" /> for specified laNumbers
+        /// Get an array of <see cref="ManagementGroupRates" /> for specified laNumbers.
         /// </summary>
         /// <param name="managementGroupYearPointers">
         /// Array of <see cref="ManagementGroupYearPointer" /> in which to return.
         /// </param>
         /// <param name="fields">
-        /// Fields to select. Null to take all
+        /// Fields to select. Null to take all.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.

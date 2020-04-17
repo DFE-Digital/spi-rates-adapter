@@ -24,6 +24,9 @@ namespace Dfe.Spi.RatesAdapter.Application.Definitions
         /// <param name="urn">
         /// The urn of the <see cref="LearningProviderRates" /> instance.
         /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all.
+        /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
         /// </param>
@@ -37,18 +40,16 @@ namespace Dfe.Spi.RatesAdapter.Application.Definitions
             CancellationToken cancellationToken);
         
         /// <summary>
-        /// Gets an instance of <see cref="LearningProviderRates" /> by its
-        /// <paramref name="urn" />.
+        /// Gets an array of <see cref="LearningProviderRates" /> for specified urns.
         /// </summary>
-        /// <param name="year">
-        /// The year of the <see cref="LearningProviderRates" /> in which to
-        /// return.
-        /// </param>
-        /// <param name="urn">
-        /// The urn of the <see cref="LearningProviderRates" /> instance.
+        /// <param name="learningProviderYearPointers">
+        /// Array of <see cref="LearningProviderYearPointer" /> in which to return.
         /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
+        /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all.
         /// </param>
         /// <returns>
         /// An instance of <see cref="LearningProviderRates" />.

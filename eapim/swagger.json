@@ -131,7 +131,7 @@
     "/management-group-rates": {
       "post": {
         "description": "Gets rates for a specified management groups in specified years.",
-        "operationId": "get-management-group-rates",
+        "operationId": "get-management-groups-rates",
         "parameters": [
           {
             "in": "body",

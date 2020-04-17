@@ -28,6 +28,57 @@
         }
       }
     },
+    "/learning-provider-rates": {
+      "post": {
+        "description": "Gets rates for a specified learning providers in specified years.",
+        "operationId": "get-learning-providers-rates",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "The identifiers and fields to use",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/batch-retrieve-request"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token authentication.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-Internal-Request-Id",
+            "type": "string",
+            "description": "An internal request id. Should be a vaild guid.",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-External-Request-Id",
+            "description": "An optional external request id. Used in logging.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A rates instance was found and is included in the body of the response.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Could not find the specified rates instance.",
+            "schema": {
+              "$ref": "#/definitions/http-error-body"
+            }
+          }
+        }
+      }
+    },
     "/learning-provider-rates/{id}": {
       "get": {
         "description": "Gets rates for a specified learning provider.",
@@ -59,6 +110,57 @@
             "name": "X-External-Request-Id",
             "type": "string",
             "description": "An optional external request id. Used in logging."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A rates instance was found and is included in the body of the response.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Could not find the specified rates instance.",
+            "schema": {
+              "$ref": "#/definitions/http-error-body"
+            }
+          }
+        }
+      }
+    },
+    "/management-group-rates": {
+      "post": {
+        "description": "Gets rates for a specified management groups in specified years.",
+        "operationId": "get-management-group-rates",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "The identifiers and fields to use",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/batch-retrieve-request"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token authentication.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-Internal-Request-Id",
+            "type": "string",
+            "description": "An internal request id. Should be a vaild guid.",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "X-External-Request-Id",
+            "description": "An optional external request id. Used in logging.",
+            "type": "string"
           }
         ],
         "responses": {
@@ -128,6 +230,27 @@
     }
   },
   "definitions": {
+    "batch-retrieve-request": {
+      "type": "object",
+      "properties": {
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "identifiers"
+      ]
+    },
     "http-error-body": {
       "type": "object",
       "properties": {

@@ -1,4 +1,9 @@
-﻿namespace Dfe.Spi.RatesAdapter.Application
+﻿using System.Linq;
+using System.Security.Cryptography;
+using Dfe.Spi.Models.Extensions;
+using Dfe.Spi.RatesAdapter.Application.Models;
+
+namespace Dfe.Spi.RatesAdapter.Application
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,6 +38,7 @@
         public async Task<LearningProviderRates> GetLearningProviderRatesAsync(
             int year,
             long urn,
+            string fields,
             CancellationToken cancellationToken)
         {
             LearningProviderRates toReturn = null;
@@ -45,9 +51,29 @@
                     .ConfigureAwait(false);
 
             toReturn = Map(schoolInformation);
+            
+            if (!string.IsNullOrEmpty(fields))
+            {
+                toReturn = toReturn.Pick(fields);
+            }
 
             return toReturn;
         }
+
+        public async Task<LearningProviderRates[]> GetLearningProvidersRatesAsync(
+            LearningProviderYearPointer[] learningProviderYearPointers, 
+            string[] fields,
+            CancellationToken cancellationToken)
+        {
+            var fieldsString = fields == null || fields.Length == 0
+                ? null
+                : fields.Aggregate((x, y) => $"{x},{y}");
+            var learningProvidersRates = await Task.WhenAll(learningProviderYearPointers.Select(pointer =>
+                GetLearningProviderRatesAsync(pointer.Year, pointer.Urn, fieldsString, CancellationToken.None)));
+
+            return learningProvidersRates;
+        }
+
 
         private static LearningProviderRates Map(
             LocalDomainModels.SchoolInformation schoolInformation)

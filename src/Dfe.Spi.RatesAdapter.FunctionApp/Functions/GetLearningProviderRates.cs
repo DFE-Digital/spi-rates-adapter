@@ -165,17 +165,13 @@
                     await this.learningProviderRatesManager.GetLearningProviderRatesAsync(
                         year,
                         urn,
+                        fields,
                         cancellationToken)
                         .ConfigureAwait(false);
 
                 learningProviderRates.Name =
                     $"Learning Provider Rates for year {year} " +
                     $"({nameof(urn)}: {urn})";
-
-                if (!string.IsNullOrEmpty(fields))
-                {
-                    learningProviderRates = learningProviderRates.Pick(fields);
-                }
 
                 JsonSerializerSettings jsonSerializerSettings =
                     JsonConvert.DefaultSettings();

@@ -47,6 +47,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HttpErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\get-management-groups-rates-body.json" />
     <None Remove="Schemas\get-learning-providers-rates-body.json" />
     <EmbeddedResource Include="Schemas\get-learning-providers-rates-body.json" />
   </ItemGroup>

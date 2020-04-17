@@ -165,17 +165,13 @@
                     await this.managementGroupRatesManager.GetManagementGroupRatesAsync(
                         year,
                         laNumber,
+                        fields,
                         cancellationToken)
                         .ConfigureAwait(false);
 
                 managementGroupRates.Name =
                     $"Management Group Rates for year {year} " +
                     $"({nameof(laNumber)}: {laNumber})";
-
-                if (!string.IsNullOrEmpty(fields))
-                {
-                    managementGroupRates = managementGroupRates.Pick(fields);
-                }
 
                 JsonSerializerSettings jsonSerializerSettings =
                     JsonConvert.DefaultSettings();

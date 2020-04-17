@@ -1,4 +1,6 @@
-﻿namespace Dfe.Spi.RatesAdapter.Application.Definitions
+﻿using Dfe.Spi.RatesAdapter.Application.Models;
+
+namespace Dfe.Spi.RatesAdapter.Application.Definitions
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -21,6 +23,9 @@
         /// <param name="laNumber">
         /// The LA number of the <see cref="ManagementGroupRates" /> instance.
         /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all
+        /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
         /// </param>
@@ -30,6 +35,27 @@
         Task<ManagementGroupRates> GetManagementGroupRatesAsync(
             int year,
             short laNumber,
+            string fields,
+            CancellationToken cancellationToken);
+        
+        /// <summary>
+        /// Get an array of <see cref="ManagementGroupRates" /> for specified laNumbers
+        /// </summary>
+        /// <param name="managementGroupYearPointers">
+        /// Array of <see cref="ManagementGroupYearPointer" /> in which to return.
+        /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all
+        /// </param>
+        /// <param name="cancellationToken">
+        /// An instance of <see cref="CancellationToken" />.
+        /// </param>
+        /// <returns>
+        /// An array of <see cref="ManagementGroupRates" />.
+        /// </returns>
+        Task<ManagementGroupRates[]> GetManagementGroupsRatesAsync(
+            ManagementGroupYearPointer[] managementGroupYearPointers,
+            string[] fields,
             CancellationToken cancellationToken);
     }
 }

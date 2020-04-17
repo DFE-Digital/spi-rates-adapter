@@ -8,6 +8,7 @@
   <ItemGroup>
     <!-- Dfe.Spi.* -->
     <PackageReference Include="Dfe.Spi.Models" Version="1.3.0" />
+    <PackageReference Include="Dfe.Spi.Models.Extensions" Version="1.0.2" />
 
     <!-- Development/Non-Runtime -->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />

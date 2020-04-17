@@ -1,4 +1,9 @@
-﻿namespace Dfe.Spi.RatesAdapter.Application
+﻿using System.Linq;
+using Dfe.Spi.Models.Extensions;
+using Dfe.Spi.RatesAdapter.Application.Models;
+using Dfe.Spi.RatesAdapter.Domain.Exceptions;
+
+namespace Dfe.Spi.RatesAdapter.Application
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,6 +38,7 @@
         public async Task<ManagementGroupRates> GetManagementGroupRatesAsync(
             int year,
             short laNumber,
+            string fields,
             CancellationToken cancellationToken)
         {
             ManagementGroupRates toReturn = null;
@@ -46,7 +52,36 @@
 
             toReturn = Map(localAuthorityInformation);
 
+            if (!string.IsNullOrEmpty(fields))
+            {
+                toReturn = toReturn.Pick(fields);
+            }
+
             return toReturn;
+        }
+
+        /// <inheritdoc />
+        public async Task<ManagementGroupRates[]> GetManagementGroupsRatesAsync(
+            ManagementGroupYearPointer[] managementGroupYearPointers, 
+            string[] fields, 
+            CancellationToken cancellationToken)
+        {
+            var fieldsString = fields == null || fields.Length == 0
+                ? null
+                : fields.Aggregate((x, y) => $"{x},{y}");
+            var learningProvidersRates = await Task.WhenAll(managementGroupYearPointers.Select(async (pointer) =>
+            {
+                try
+                {
+                    return await GetManagementGroupRatesAsync(pointer.Year, pointer.LaNumber, fieldsString, CancellationToken.None);
+                }
+                catch (RatesNotFoundException)
+                {
+                    return null;
+                }
+            }));
+
+            return learningProvidersRates;
         }
 
         private static ManagementGroupRates Map(

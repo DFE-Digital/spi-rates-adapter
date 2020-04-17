@@ -1,4 +1,7 @@
-﻿namespace Dfe.Spi.RatesAdapter.Application.Definitions
+﻿using System.Collections.Generic;
+using Dfe.Spi.RatesAdapter.Application.Models;
+
+namespace Dfe.Spi.RatesAdapter.Application.Definitions
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -21,6 +24,9 @@
         /// <param name="urn">
         /// The urn of the <see cref="LearningProviderRates" /> instance.
         /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all.
+        /// </param>
         /// <param name="cancellationToken">
         /// An instance of <see cref="CancellationToken" />.
         /// </param>
@@ -30,6 +36,27 @@
         Task<LearningProviderRates> GetLearningProviderRatesAsync(
             int year,
             long urn,
+            string fields,
+            CancellationToken cancellationToken);
+        
+        /// <summary>
+        /// Gets an array of <see cref="LearningProviderRates" /> for specified urns.
+        /// </summary>
+        /// <param name="learningProviderYearPointers">
+        /// Array of <see cref="LearningProviderYearPointer" /> in which to return.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// An instance of <see cref="CancellationToken" />.
+        /// </param>
+        /// <param name="fields">
+        /// Fields to select. Null to take all.
+        /// </param>
+        /// <returns>
+        /// An instance of <see cref="LearningProviderRates" />.
+        /// </returns>
+        Task<LearningProviderRates[]> GetLearningProvidersRatesAsync(
+            LearningProviderYearPointer[] learningProviderYearPointers,
+            string[] fields,
             CancellationToken cancellationToken);
     }
 }

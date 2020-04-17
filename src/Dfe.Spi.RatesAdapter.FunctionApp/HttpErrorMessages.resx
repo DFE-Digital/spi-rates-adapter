@@ -138,4 +138,10 @@
   <data name="_7" xml:space="preserve">
     <value>Invalid LA Number "{0}" - the LA Number must be a valid short.</value>
   </data>
+  <data name="_8" xml:space="preserve">
+    <value>The supplied body was either empty, or not well-formed JSON.</value>
+  </data>
+  <data name="_9" xml:space="preserve">
+    <value>The supplied body was well-formed JSON but it failed validation: {0}</value>
+  </data>
 </root>

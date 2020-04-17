@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <NeutralLanguage>en-GB</NeutralLanguage>
     <DocumentationFile>Dfe.Spi.RatesAdapter.FunctionApp.xml</DocumentationFile>
@@ -47,6 +47,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HttpErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\get-management-groups-rates-body.json" />
+    <None Remove="Schemas\get-learning-providers-rates-body.json" />
+    <EmbeddedResource Include="Schemas\get-learning-providers-rates-body.json" />
   </ItemGroup>
   
   <ItemGroup>

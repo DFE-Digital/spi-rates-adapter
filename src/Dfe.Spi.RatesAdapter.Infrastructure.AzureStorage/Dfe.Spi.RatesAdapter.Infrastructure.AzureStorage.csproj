@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.xml</DocumentationFile>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <DocumentationFile>Dfe.Spi.RatesAdapter.Infrastructure.AzureStorage.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Microsoft -->
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Dfe.Spi.Common.AzureStorage" Version="1.0.4" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.1" />
 

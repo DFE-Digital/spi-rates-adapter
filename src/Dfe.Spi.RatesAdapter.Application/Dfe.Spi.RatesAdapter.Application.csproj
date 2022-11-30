@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <DocumentationFile>Dfe.Spi.RatesAdapter.Application.xml</DocumentationFile>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <DocumentationFile>Dfe.Spi.RatesAdapter.Application.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Dfe.Spi.* -->
-    <PackageReference Include="Dfe.Spi.Models" Version="1.3.0" />
+    <PackageReference Include="Dfe.Spi.Models" Version="2.1.0" />
     <PackageReference Include="Dfe.Spi.Models.Extensions" Version="1.0.2" />
 
     <!-- Development/Non-Runtime -->
